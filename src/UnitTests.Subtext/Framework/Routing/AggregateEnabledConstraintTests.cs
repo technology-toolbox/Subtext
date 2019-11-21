@@ -1,12 +1,12 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Routing;
 
 namespace UnitTests.Subtext.Framework.Routing
 {
-    [TestClass]
+    [TestFixture]
     public class AggregateEnabledConstraintTests
     {
-        [TestMethod]
+        [Test]
         public void ConstraintWithTrue_WithSettingSetToTrue_ReturnsTrue()
         {
             //arrange
@@ -19,7 +19,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [Test]
         public void ConstraintWithFalse_WithSettingSetToTrue_ReturnsFalse()
         {
             //arrange
@@ -32,7 +32,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [Test]
         public void ConstraintWithTrue_WithSettingSetToFalse_ReturnsFalse()
         {
             //arrange
@@ -45,7 +45,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [Test]
         public void ConstraintWithFalse_WithSettingSetToFalse_ReturnsTrue()
         {
             //arrange

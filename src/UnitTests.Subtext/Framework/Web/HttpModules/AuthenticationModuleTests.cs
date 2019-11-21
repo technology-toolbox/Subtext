@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Moq.Stub;
 using Subtext.Framework;
@@ -11,10 +11,10 @@ using Subtext.Framework.Web.HttpModules;
 
 namespace UnitTests.Subtext.Framework.Web.HttpModules
 {
-    [TestClass]
+    [TestFixture]
     public class AuthenticationModuleTests
     {
-        [TestMethod]
+        [Test]
         public void AuthenticateRequest_WithRequestForStaticFile_ReturnsImmediately()
         {
             // arrange
@@ -28,7 +28,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             module.AuthenticateRequest(httpContext.Object, blogRequest);
         }
 
-        [TestMethod]
+        [Test]
         public void GetFormsAuthenticationTicket_WithRequestHavingNoCookies_ReturnsNull()
         {
             // arrange
@@ -41,7 +41,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             Assert.IsNull(authTicket);
         }
 
-        [TestMethod]
+        [Test]
         public void GetFormsAuthenticationTicket_WithRequestHavingIndecipherableAuthCookies_ReturnsNull()
         {
             // arrange
@@ -55,7 +55,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             Assert.IsNull(ticket);
         }
 
-        [TestMethod]
+        [Test]
         public void GetFormsAuthenticationTicket_WithRequestHavingNullAuthTicket_ReturnsNull()
         {
             // arrange
@@ -69,7 +69,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             Assert.IsNull(ticket);
         }
 
-        [TestMethod]
+        [Test]
         public void GetFormsAuthenticationTicket_WithRequestHavingExpiredAuthCookies_SetsUserToGenericPrincipalWithRoles()
         {
             // arrange
@@ -88,7 +88,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             Assert.IsNull(authTicket);
         }
 
-        [TestMethod]
+        [Test]
         public void AuthenticateRequest_WithRequestHavingValidAuthCookies_SetsUserToGenericPrincipalWithRoles()
         {
             // arrange

@@ -1,13 +1,13 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework.Services;
 
 namespace UnitTests.Subtext.Framework.Services
 {
-    [TestClass]
+    [TestFixture]
     public class CompositeTextTransformationTests
     {
-        [TestMethod]
+        [Test]
         public void Transform_WithMultipleTransformations_RunsThemAll()
         {
             //arrange

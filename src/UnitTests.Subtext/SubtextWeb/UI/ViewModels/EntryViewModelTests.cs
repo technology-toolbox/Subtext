@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Extensibility;
 using Subtext.Framework;
@@ -8,10 +8,10 @@ using Subtext.Web.UI.ViewModels;
 
 namespace UnitTests.Subtext.SubtextWeb.UI.ViewModels
 {
-    [TestClass]
+    [TestFixture]
     public class EntryViewModelTests
     {
-        [TestMethod]
+        [Test]
         public void Ctor_CopiesAllPropertiesOfEntry()
         {
             // arrange
@@ -30,7 +30,7 @@ namespace UnitTests.Subtext.SubtextWeb.UI.ViewModels
             Assert.AreEqual("The title", model.Title);
         }
 
-        [TestMethod]
+        [Test]
         public void FullyQualifiedUrl_ReturnsCorrectUrl()
         {
             // arrange

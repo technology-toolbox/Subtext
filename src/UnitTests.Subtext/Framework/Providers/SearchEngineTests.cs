@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework.Components;
 using Subtext.Framework.Configuration;
@@ -9,10 +9,11 @@ using Subtext.Framework.Routing;
 
 namespace UnitTests.Subtext.Framework.Providers
 {
-    [TestClass]
+    [TestFixture]
     public class SearchEngineTests
     {
-        [DatabaseIntegrationTestMethod]
+        [RollBack2]
+        [Test]
         public void Search_WithMultipleMatchingEntries_FindsThoseEntries()
         {
             //arrange

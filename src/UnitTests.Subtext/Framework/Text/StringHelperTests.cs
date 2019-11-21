@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Text;
 
 namespace UnitTests.Subtext.Framework.Text
@@ -9,10 +9,10 @@ namespace UnitTests.Subtext.Framework.Text
     /// <summary>
     /// Summary description for StringHelperTests.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class StringHelperTests
     {
-        [TestMethod]
+        [Test]
         public void Remove_PassingInTextWithRepeatingSequenceAndOccurrenceCountOfOne_RemovesFirstOccurrence()
         {
             //act
@@ -22,7 +22,7 @@ namespace UnitTests.Subtext.Framework.Text
             Assert.AreEqual("/bar/foo", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Remove_PassingInTextWithRepeatingSequenceAndOccurrenceCountOfTwo_RemovesAllOccurrences()
         {
             //act
@@ -32,7 +32,7 @@ namespace UnitTests.Subtext.Framework.Text
             Assert.AreEqual("/bar/", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Remove_PassingInTextWithRepeatingSequenceAndOccurrenceCountOfFour_RemovesAllOccurrences()
         {
             //act
@@ -42,18 +42,18 @@ namespace UnitTests.Subtext.Framework.Text
             Assert.AreEqual("/bar/", result);
         }
 
-        [DataTestMethod]
-        [DataRow("Blah..Blah", '.', "Blah.Blah")]
-        [DataRow("Blah...Blah", '.', "Blah.Blah")]
-        [DataRow("Blah....Blah", '.', "Blah.Blah")]
-        [DataRow("Blah- -Blah", '-', "Blah- -Blah")]
-        [DataRow("Blah--Blah", '.', "Blah--Blah")]
+        [RowTest]
+        [Row("Blah..Blah", '.', "Blah.Blah")]
+        [Row("Blah...Blah", '.', "Blah.Blah")]
+        [Row("Blah....Blah", '.', "Blah.Blah")]
+        [Row("Blah- -Blah", '-', "Blah- -Blah")]
+        [Row("Blah--Blah", '.', "Blah--Blah")]
         public void CanRemoveDoubleCharacter(string text, char character, string expected)
         {
             Assert.AreEqual(expected, text.RemoveDoubleCharacter(character));
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveDoubleCharacter_WithNullCharacter_ThrowsArgumentNullException()
         {
             UnitTestHelper.AssertThrowsArgumentNullException(
@@ -70,18 +70,18 @@ namespace UnitTests.Subtext.Framework.Text
         /// </remarks>
         /// <param name="original"></param>
         /// <param name="expected"></param>
-        [DataTestMethod]
-        [DataRow("", "")]
-        [DataRow("a", "A")]
-        [DataRow("A", "A")]
-        [DataRow("A B", "AB")]
-        [DataRow("a bee keeper's dream.", "ABeeKeeper'sDream.")]
+        [RowTest]
+        [Row("", "")]
+        [Row("a", "A")]
+        [Row("A", "A")]
+        [Row("A B", "AB")]
+        [Row("a bee keeper's dream.", "ABeeKeeper'sDream.")]
         public void PascalCaseTests(string original, string expected)
         {
             Assert.AreEqual(expected, original.ToPascalCase());
         }
 
-        [TestMethod]
+        [Test]
         public void PascalCaseThrowsArgumentNullException()
         {
             UnitTestHelper.AssertThrowsArgumentNullException(() =>
@@ -89,9 +89,9 @@ namespace UnitTests.Subtext.Framework.Text
             );
         }
 
-        [DataTestMethod]
-        [DataRow("BLAH Tast", "a", 6, StringComparison.Ordinal)]
-        [DataRow("BLAH Tast", "a", 2, StringComparison.OrdinalIgnoreCase)]
+        [RowTest]
+        [Row("BLAH Tast", "a", 6, StringComparison.Ordinal)]
+        [Row("BLAH Tast", "a", 2, StringComparison.OrdinalIgnoreCase)]
         public void IndexOfHandlesCaseSensitivity(string source, string search, int expectedIndex,
                                                   StringComparison comparison)
         {
@@ -99,10 +99,10 @@ namespace UnitTests.Subtext.Framework.Text
                             "Did not find the string '{0}' at the index {1}", search, expectedIndex);
         }
 
-        [DataTestMethod]
-        [DataRow("Blah/Default.aspx", "Default.aspx", "Blah/", StringComparison.Ordinal)]
-        [DataRow("Blah/Default.aspx", "default.aspx", "Blah/", StringComparison.OrdinalIgnoreCase)]
-        [DataRow("Blah/Default.aspx", "default.aspx", "Blah/Default.aspx", StringComparison.Ordinal)]
+        [RowTest]
+        [Row("Blah/Default.aspx", "Default.aspx", "Blah/", StringComparison.Ordinal)]
+        [Row("Blah/Default.aspx", "default.aspx", "Blah/", StringComparison.OrdinalIgnoreCase)]
+        [Row("Blah/Default.aspx", "default.aspx", "Blah/Default.aspx", StringComparison.Ordinal)]
         public void LeftBeforeOfHandlesCaseSensitivity(string source, string search, string expected,
                                                        StringComparison comparison)
         {
@@ -110,7 +110,7 @@ namespace UnitTests.Subtext.Framework.Text
                             "Truncating did not return the correct result.");
         }
 
-        [TestMethod]
+        [Test]
         public void SplitIntoWords_WithStringContainingSpaces_SplitsIntoWords()
         {
             //arrange, act
@@ -124,7 +124,7 @@ namespace UnitTests.Subtext.Framework.Text
             Assert.AreEqual("test", words.ElementAt(3));
         }
 
-        [TestMethod]
+        [Test]
         public void SplitIntoWords_WithStringContainingTabsAndDoubleSpaces_SplitsIntoWords()
         {
             //arrange, act
@@ -147,31 +147,31 @@ namespace UnitTests.Subtext.Framework.Text
                "x".chop.chop       #=> ""
              */
 
-        [TestMethod]
+        [Test]
         public void Chop_WithStringEndingWithWindowsNewLine_ReturnsStringWithoutNewline()
         {
             Assert.AreEqual("string", "string\r\n".Chop());
         }
 
-        [TestMethod]
+        [Test]
         public void Chop_WithStringEndingWithSlashR_OnlyChopsSlashR()
         {
             Assert.AreEqual("string\n", "string\n\r".Chop());
         }
 
-        [TestMethod]
+        [Test]
         public void Chop_WithStringEndingWithNewline_ChopsNewline()
         {
             Assert.AreEqual("string", "string\n".Chop());
         }
 
-        [TestMethod]
+        [Test]
         public void Chop_WithStringEndingWithLetter_ReturnsStringWithoutLastLetter()
         {
             Assert.AreEqual("strin", "string".Chop());
         }
 
-        [TestMethod]
+        [Test]
         public void Chop_WithOneLetter_ReturnsEmptyString()
         {
             Assert.AreEqual(string.Empty, "x".Chop());
@@ -187,43 +187,43 @@ namespace UnitTests.Subtext.Framework.Text
          "hello".chomp("llo")     #=> "he"
          */
 
-        [TestMethod]
+        [Test]
         public void Chomp_WithStringNotEndingWithDefaultSeparator_ReturnsString()
         {
             Assert.AreEqual("hello", "hello".Chomp());
         }
 
-        [TestMethod]
+        [Test]
         public void Chomp_WithStringEndingWithNewline_ChopsNewline()
         {
             Assert.AreEqual("hello", "hello\n".Chop());
         }
 
-        [TestMethod]
+        [Test]
         public void Chomp_WithStringEndingWithWindowsNewLine_ReturnsStringWithoutNewline()
         {
             Assert.AreEqual("hello", "hello\r\n".Chomp());
         }
 
-        [TestMethod]
+        [Test]
         public void Chomp_WithStringEndingWithSlashNSlashR_OnlyChopsSlashR()
         {
             Assert.AreEqual("hello\n", "hello\n\r".Chop());
         }
 
-        [TestMethod]
+        [Test]
         public void Chomp_WithStringEndingWithSlashR_OnlyChopsSlashR()
         {
             Assert.AreEqual("hello", "hello\r".Chop());
         }
 
-        [TestMethod]
+        [Test]
         public void Chomp_WithSeparator_ChopsSeparator()
         {
             Assert.AreEqual("he", "hello".Chomp("llo", StringComparison.Ordinal));
         }
 
-        [TestMethod]
+        [Test]
         public void Chomp_WithSeparatorButStringNotEndingWithSeparator_LeavesStringAlone()
         {
             Assert.AreEqual("hello world", "hello world".Chomp("llo", StringComparison.Ordinal));

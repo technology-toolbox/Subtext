@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Microsoft.ApplicationBlocks.Data;
 using Subtext.Framework;
 using Subtext.Framework.Configuration;
@@ -28,11 +28,11 @@ using Subtext.Framework.Providers;
 
 namespace UnitTests.Subtext.Framework
 {
-    [TestClass]
+    [TestFixture]
     public class HostInfoTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        [SetUp]
+        public void SetUp()
         {
             DependencyResolver.SetResolver(new TestDependencyResolver());
         }
@@ -54,7 +54,8 @@ namespace UnitTests.Subtext.Framework
             }
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanLoadHost()
         {
             var repository = new DatabaseObjectProvider();
@@ -69,7 +70,8 @@ namespace UnitTests.Subtext.Framework
             Assert.IsNotNull(HostInfo.Instance, "Host should not be null.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanUpdateHost()
         {
             var repository = new DatabaseObjectProvider();
@@ -87,7 +89,8 @@ namespace UnitTests.Subtext.Framework
             Assert.AreEqual("test2", host.HostUserName, "Username wasn't changed.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanCorrectlyStored()
         {
             //init

@@ -1,16 +1,16 @@
 using System;
 using System.Web;
 using System.Web.Routing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework.Util;
 
 namespace UnitTests.Subtext.Framework.Util
 {
-    [TestClass]
+    [TestFixture]
     public class RequestExtensionsTests
     {
-        [TestMethod]
+        [Test]
         public void GetDateFromRequest_WithDateValuesInRouteData_ReturnsCorrectDate()
         {
             // arrange
@@ -27,7 +27,7 @@ namespace UnitTests.Subtext.Framework.Util
             Assert.AreEqual(new DateTime(2009, 01, 23), theDate);
         }
 
-        [TestMethod]
+        [Test]
         public void GetDateFromRequest_WithNoDayValueInRouteValues_ReturnsFirstDayOfMonth()
         {
             // arrange
@@ -44,7 +44,7 @@ namespace UnitTests.Subtext.Framework.Util
             Assert.AreEqual(new DateTime(2009, 01, 01), theDate);
         }
 
-        [TestMethod]
+        [Test]
         public void GetSlugFromRequest_WithSlugInRouteData_ReturnsSlug()
         {
             // arrange
@@ -59,7 +59,7 @@ namespace UnitTests.Subtext.Framework.Util
             Assert.AreEqual("my-category", slug);
         }
 
-        [TestMethod]
+        [Test]
         public void GetSlugFromRequest_WithoutSlugInRouteData_ReturnsNull()
         {
             // arrange
@@ -73,7 +73,7 @@ namespace UnitTests.Subtext.Framework.Util
             Assert.IsNull(slug);
         }
 
-        [TestMethod]
+        [Test]
         public void GetIdFromRequest_WithIdInRouteData_ReturnsId()
         {
             // arrange
@@ -88,7 +88,7 @@ namespace UnitTests.Subtext.Framework.Util
             Assert.AreEqual(123, id);
         }
 
-        [TestMethod]
+        [Test]
         public void GetIdFromRequest_WithoutIdInRouteData_ReturnsNull()
         {
             // arrange
@@ -102,7 +102,7 @@ namespace UnitTests.Subtext.Framework.Util
             Assert.IsNull(id);
         }
 
-        [TestMethod]
+        [Test]
         public void GetIdFromRequest_WithNonNumericIdInRouteData_ReturnsNull()
         {
             // arrange

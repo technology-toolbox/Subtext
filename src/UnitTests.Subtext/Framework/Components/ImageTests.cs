@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Components;
 using Subtext.Framework.Configuration;
 using Subtext.Framework.Providers;
@@ -8,10 +8,11 @@ using Subtext.Framework.Data;
 
 namespace UnitTests.Subtext.Framework.Components
 {
-    [TestClass]
+    [TestFixture]
     public class ImageTests
     {
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanGetRecentImages()
         {
             //arrange
@@ -46,7 +47,7 @@ namespace UnitTests.Subtext.Framework.Components
             Assert.AreEqual(imageId, images.First().ImageID);
         }
 
-        [TestMethod]
+        [Test]
         public void CanGetAndSetSimpleProperties()
         {
             var image = new Image();
@@ -79,7 +80,7 @@ namespace UnitTests.Subtext.Framework.Components
             Assert.AreEqual(312, image.Width);
         }
 
-        [TestMethod]
+        [Test]
         public void CanGetFilePath()
         {
             var image = new Image();
@@ -88,7 +89,7 @@ namespace UnitTests.Subtext.Framework.Components
             Assert.AreEqual(@"c:\Test.jpg", image.FilePath);
         }
 
-        [TestMethod]
+        [Test]
         public void GetOriginalFileNamePrependsLetterOWithUnderscore()
         {
             var image = new Image();
@@ -98,7 +99,7 @@ namespace UnitTests.Subtext.Framework.Components
             Assert.AreEqual(@"c:\o_Test.jpg", image.OriginalFilePath);
         }
 
-        [TestMethod]
+        [Test]
         public void GetOriginalThumbNailFileNamePrependsLetterTWithUnderscore()
         {
             var image = new Image();
@@ -108,7 +109,7 @@ namespace UnitTests.Subtext.Framework.Components
             Assert.AreEqual(@"c:\t_Test.jpg", image.ThumbNailFilePath);
         }
 
-        [TestMethod]
+        [Test]
         public void GetResizedFileNamePrependsLetterTWithUnderscore()
         {
             var image = new Image();

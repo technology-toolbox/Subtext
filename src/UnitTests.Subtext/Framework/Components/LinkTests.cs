@@ -1,19 +1,19 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Components;
 
 namespace UnitTests.Subtext.Framework.Components
 {
-    [TestClass]
+    [TestFixture]
     public class LinkTests
     {
-        [TestMethod]
+        [Test]
         public void CanSetAndGetSimpleProperties()
         {
             var link = new Link();
             UnitTestHelper.AssertSimpleProperties(link);
         }
 
-        [TestMethod]
+        [Test]
         public void CanSetAndGetSimpleLinkCategoryProperties()
         {
             var category = new LinkCategory();

@@ -17,7 +17,7 @@
 
 using System;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Infrastructure.Installation;
 using Subtext.Scripting;
 using Subtext.Scripting.Exceptions;
@@ -27,10 +27,10 @@ namespace UnitTests.Subtext.Scripting
     /// <summary>
     /// Summary description for ScriptHelperTests.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ScriptHelperTests
     {
-        [TestMethod]
+        [Test]
         public void CanParseGoWithDashDashCommentAfter()
         {
             const string script = @"SELECT * FROM foo;
@@ -40,7 +40,7 @@ CREATE PROCEDURE dbo.Test AS SELECT * FROM foo";
             Assert.AreEqual(2, scripts.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void CanParseNestedComments()
         {
             const string script = @"/*
@@ -53,7 +53,7 @@ delete from users
             Assert.AreEqual(1, scripts.Count, "This contains a comment and no scripts.");
         }
 
-        [TestMethod]
+        [Test]
         public void SlashStarCommentAfterGoThrowsException()
         {
             const string script = @"PRINT 'blah'
@@ -62,7 +62,7 @@ GO /* blah */";
             UnitTestHelper.AssertThrows<SqlParseException>(() => Script.ParseScripts(script));
         }
 
-        [TestMethod]
+        [Test]
         public void CanParseSuccessiveGoStatements()
         {
             const string script = @"GO
@@ -71,7 +71,7 @@ GO";
             Assert.AreEqual(0, scripts.Count, "Expected no scripts since they would be empty.");
         }
 
-        [TestMethod]
+        [Test]
         public void SemiColonDoesNotSplitScript()
         {
             const string script = "CREATE PROC Blah AS SELECT FOO; SELECT Bar;";
@@ -79,7 +79,7 @@ GO";
             Assert.AreEqual(1, scripts.Count, "Expected no scripts since they would be empty.");
         }
 
-        [TestMethod]
+        [Test]
         public void CanParseQuotedCorrectly()
         {
             const string script = @"INSERT INTO #Indexes
@@ -89,7 +89,7 @@ GO";
             Assert.AreEqual(script, scripts[0].ScriptText, "Script text should not be modified");
         }
 
-        [TestMethod]
+        [Test]
         public void CanParseSimpleScript()
         {
             string script = "Test" + Environment.NewLine + "go";
@@ -98,7 +98,7 @@ GO";
             Assert.AreEqual("Test", scripts[0].ScriptText);
         }
 
-        [TestMethod]
+        [Test]
         public void CanParseCommentBeforeGoStatement()
         {
             const string script = @"SELECT FOO
@@ -108,7 +108,7 @@ BAR";
             Assert.AreEqual(2, scripts.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void CanParseCommentWithQuoteChar()
         {
             const string script = @"/* Add the Url column to the subtext_Log table if it doesn't exist */
@@ -119,7 +119,7 @@ GO
             Assert.AreEqual(2, scripts.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void CanParseDashDashCommentWithQuoteChar()
         {
             const string script = @"-- Add the Url column to the subtext_Log table if it doesn't exist
@@ -130,7 +130,7 @@ PRINT 'FOO'";
             Assert.AreEqual(2, scripts.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void CanParseLineEndingInDashDashComment()
         {
             const string script = @"SELECT * FROM BLAH -- Comment
@@ -141,7 +141,7 @@ GO";
             Assert.AreEqual(2, scripts.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void CanParseSimpleScriptEndingInNewLine()
         {
             string script = "Test" + Environment.NewLine + "GO" + Environment.NewLine;
@@ -150,7 +150,7 @@ GO";
             Assert.AreEqual("Test", scripts[0].ScriptText);
         }
 
-        [TestMethod]
+        [Test]
         public void MultiLineQuoteShouldNotIgnoreDoubleQuote()
         {
             string script = "PRINT '" + Environment.NewLine
@@ -166,7 +166,7 @@ GO";
             UnitTestHelper.AssertStringsEqualCharacterByCharacter(script, scripts[0].ScriptText);
         }
 
-        [TestMethod]
+        [Test]
         public void MultiLineQuoteShouldNotBeSplitByGoKeyword()
         {
             string script = "PRINT '" + Environment.NewLine
@@ -184,7 +184,8 @@ GO";
         /// <summary>
         /// Makes sure that ParseScript parses correctly.
         /// </summary>
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void ParseScriptParsesCorrectly()
         {
             const string script = @"SET QUOTED_IDENTIFIER OFF 
@@ -243,7 +244,7 @@ gO
         /// <summary>
         /// Unpacks the installation script and makes sure it returns a script.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void UnpackScriptReturnsScript()
         {
             Stream stream = ScriptHelper.UnpackEmbeddedScript("Installation.01.00.00.sql");
@@ -253,11 +254,11 @@ gO
         /// <summary>
         /// Unpacks the installation script and makes sure it returns a script.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void UnpackScriptAsStringReturnsScript()
         {
             string script = ScriptHelper.UnpackEmbeddedScriptAsString("Installation.01.00.00.sql");
-            Assert.IsFalse(string.IsNullOrEmpty(script));
+            StringAssert.IsNonEmpty(script);
         }
     }
 }

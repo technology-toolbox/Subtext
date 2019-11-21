@@ -1,6 +1,6 @@
 using System;
 using System.Xml;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework;
 using Subtext.Framework.Components;
@@ -9,10 +9,10 @@ using Subtext.Web.Controllers;
 
 namespace UnitTests.Subtext.SubtextWeb.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class CommentApiControllerTests
     {
-        [TestMethod]
+        [Test]
         public void CtorSetsCommentService()
         {
             // arrange
@@ -26,7 +26,7 @@ namespace UnitTests.Subtext.SubtextWeb.Controllers
             Assert.AreSame(service, controller.CommentService);
         }
 
-        [TestMethod]
+        [Test]
         public void CreateWithNullXmlThrowsInvalidOperationException()
         {
             // arrange
@@ -38,7 +38,7 @@ namespace UnitTests.Subtext.SubtextWeb.Controllers
             UnitTestHelper.AssertThrowsArgumentNullException(() => controller.Create(1, null));
         }
 
-        [TestMethod]
+        [Test]
         public void CreatePassesFeedbackItemToService()
         {
             // arrange
@@ -70,7 +70,7 @@ namespace UnitTests.Subtext.SubtextWeb.Controllers
             Assert.AreEqual("http://subtextproject.com/", comment.SourceUrl.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void CreateMissingAuthorDoesNotThrowException()
         {
             // arrange

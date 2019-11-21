@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BlogML;
 using BlogML.Xml;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework;
 using Subtext.Framework.Components;
@@ -13,10 +13,10 @@ using Subtext.ImportExport;
 
 namespace UnitTests.Subtext.BlogMl
 {
-    [TestClass]
+    [TestFixture]
     public class BlogImportRepositoryTests
     {
-        [TestMethod]
+        [Test]
         public void CreateCategories_WithBlogHavingCategories_CreatesCategories()
         {
             // arrange
@@ -35,7 +35,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.IsTrue(categoryCreated);
         }
 
-        [TestMethod]
+        [Test]
         public void CreateCategories_WithBlogHavingNoCategories_DoesNotCreateCategories()
         {
             // arrange
@@ -49,7 +49,7 @@ namespace UnitTests.Subtext.BlogMl
             repository.CreateCategories(blog);
         }
 
-        [TestMethod]
+        [Test]
         public void CreateBlogPost_WithEntryPublisher_PublishesBlogPostAndReturnsId()
         {
             // arrange
@@ -68,7 +68,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.AreEqual("310", id);
         }
 
-        [TestMethod]
+        [Test]
         public void CreateBlogPost_WithEntryPublisher_RemovesKeywordExpander()
         {
             // arrange
@@ -91,7 +91,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.IsFalse(transformation.Contains(keywordExpander));
         }
 
-        [TestMethod]
+        [Test]
         public void CreateComment_WithComment_CreatesCommentUsingCommentService()
         {
             // arrange
@@ -108,7 +108,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.IsTrue(commentCreated);
         }
 
-        [TestMethod]
+        [Test]
         public void GetAttachmentDirectoryPath_WithAttachment_CreatesTrackbackUsingTrackbackService()
         {
             // arrange
@@ -125,7 +125,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.IsTrue(trackbackCreated);
         }
 
-        [TestMethod]
+        [Test]
         public void CreateTrackback_WithTrackback_CreatesTrackbackUsingTrackbackService()
         {
             // arrange
@@ -141,7 +141,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.IsTrue(trackbackCreated);
         }
 
-        [TestMethod]
+        [Test]
         public void GetAttachmentDirectoryPath_DelegatesToUrlHelperForPath()
         {
             // arrange
@@ -158,7 +158,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.AreEqual(@"c:\web\images", path);
         }
 
-        [TestMethod]
+        [Test]
         public void GetAttachmentDirectoryUrl_DelegatesToUrlHelperForUrl()
         {
             // arrange
@@ -175,7 +175,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.AreEqual(@"/test", path);
         }
 
-        [TestMethod]
+        [Test]
         public void SetupBlogForImport_ReturnsBlogMLScope()
         {
             // arrange
@@ -195,7 +195,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.AreEqual(repository.Object, scope.Repository);
         }
 
-        [TestMethod]
+        [Test]
         public void SetExtendedProperties_WithKeyForCommentModeration_EnablesModeration()
         {
             // arrange
@@ -215,7 +215,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.IsTrue(blog.ModerationEnabled);
         }
 
-        [TestMethod]
+        [Test]
         public void SetExtendedProperties_WithKeyForTrackbacksEnabled_EnablesTrackbacks()
         {
             // arrange

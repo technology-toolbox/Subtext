@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Ninject;
 using Ninject.Syntax;
 using Subtext.Framework.Services;
@@ -9,10 +9,10 @@ using Subtext.Web.App_Start;
 
 namespace UnitTests.Subtext.Framework.Infrastructure
 {
-    [TestClass]
+    [TestFixture]
     public class NinjectMVC3Tests
     {
-        [TestMethod]
+        [Test]
         public void RegisterServices_DoesNotRegisterSameServiceTwice()
         {
             // arrange
@@ -22,7 +22,7 @@ namespace UnitTests.Subtext.Framework.Infrastructure
             NinjectMVC3.RegisterServices(kernel);
 
             // assert
-            Assert.IsTrue(kernel.Types.Count > 1);
+            Assert.GreaterThan(kernel.Types.Count, 1);
         }
 
         private class StubKernel : IKernel

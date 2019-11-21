@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Web;
 using System.Web.Routing;
 using System.Web.UI;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Extensibility;
 using Subtext.Framework;
@@ -16,10 +16,10 @@ using UnitTests.Subtext.Framework.Util;
 
 namespace UnitTests.Subtext.SubtextWeb.UI.Pages
 {
-    [TestClass]
+    [TestFixture]
     public class SubtextMasterPageTests
     {
-        [TestMethod]
+        [Test]
         public void AddControlToBody_WithComments_AddsControlToUpdatePanel()
         {
             // arrange
@@ -36,7 +36,7 @@ namespace UnitTests.Subtext.SubtextWeb.UI.Pages
             Assert.IsTrue(control.Visible);
         }
 
-        [TestMethod]
+        [Test]
         public void AddControlToBody_WithPostComment_AddsControlToUpdatePanelAndUpdatePanelToCenterBodyControl()
         {
             // arrange
@@ -54,7 +54,7 @@ namespace UnitTests.Subtext.SubtextWeb.UI.Pages
             Assert.IsTrue(postCommentControl.Visible);
         }
 
-        [TestMethod]
+        [Test]
         public void AddControlToBody_WithOtherControl_AddsControlToBodyControl()
         {
             // arrange
@@ -70,15 +70,15 @@ namespace UnitTests.Subtext.SubtextWeb.UI.Pages
             Assert.AreEqual(control, bodyControl.Controls[0]);
         }
 
-        [DataTestMethod]
-        [DataRow("javascript", "scripts/test.js", "", "", @"<script type=""javascript"" src=""scripts/test.js""></script>")]
-        [DataRow("javascript", "scripts/test.js", "", "/Subtext.Web/MyBlog/",
+        [RowTest]
+        [Row("javascript", "scripts/test.js", "", "", @"<script type=""javascript"" src=""scripts/test.js""></script>")]
+        [Row("javascript", "scripts/test.js", "", "/Subtext.Web/MyBlog/",
             @"<script type=""javascript"" src=""/Subtext.Web/MyBlog/scripts/test.js""></script>")]
-        [DataRow("javascript", "~/scripts/test.js", "Subtext.Web", "/Anything/",
+        [Row("javascript", "~/scripts/test.js", "Subtext.Web", "/Anything/",
             @"<script type=""javascript"" src=""/Subtext.Web/scripts/test.js""></script>")]
-        [DataRow("javascript", "~/scripts/test.js", "", "/Anything/",
+        [Row("javascript", "~/scripts/test.js", "", "/Anything/",
             @"<script type=""javascript"" src=""/scripts/test.js""></script>")]
-        [DataRow("javascript", "/scripts/test.js", "Subtext.Web", "/Anything/",
+        [Row("javascript", "/scripts/test.js", "Subtext.Web", "/Anything/",
             @"<script type=""javascript"" src=""/scripts/test.js""></script>")]
         public void RenderScriptElementRendersAppropriatePath(string type, string src, string virtualDir,
                                                               string skinPath, string expected)
@@ -92,13 +92,13 @@ namespace UnitTests.Subtext.SubtextWeb.UI.Pages
                             "The rendered script tag was not what we expected.");
         }
 
-        [DataTestMethod]
-        [DataRow("style/test.css", "", "", @"style/test.css")]
-        [DataRow("style/test.css", "", "/Subtext.Web/MyBlog/", @"/Subtext.Web/MyBlog/style/test.css")]
-        [DataRow("~/style/test.css", "Subtext.Web", "/Anything/", @"/Subtext.Web/style/test.css")]
-        [DataRow("~/style/test.css", "", "/Anything/", "/style/test.css")]
-        [DataRow("/style/test.css", "Subtext.Web", "/Anything/", "/style/test.css")]
-        [DataRow("http://haacked.com/style/test.css", "Subtext.Web", "/Anything/", "http://haacked.com/style/test.css")]
+        [RowTest]
+        [Row("style/test.css", "", "", @"style/test.css")]
+        [Row("style/test.css", "", "/Subtext.Web/MyBlog/", @"/Subtext.Web/MyBlog/style/test.css")]
+        [Row("~/style/test.css", "Subtext.Web", "/Anything/", @"/Subtext.Web/style/test.css")]
+        [Row("~/style/test.css", "", "/Anything/", "/style/test.css")]
+        [Row("/style/test.css", "Subtext.Web", "/Anything/", "/style/test.css")]
+        [Row("http://haacked.com/style/test.css", "Subtext.Web", "/Anything/", "http://haacked.com/style/test.css")]
         public void GetStylesheetHrefPathRendersAppropriatePath(string src, string virtualDir, string skinPath,
                                                                 string expected)
         {
@@ -110,7 +110,7 @@ namespace UnitTests.Subtext.SubtextWeb.UI.Pages
             Assert.AreEqual(stylePath, expected, "The rendered style path was not what we expected.");
         }
         
-        [TestMethod]
+        [Test]
         public void InitializeControls_WithControlNames_AddsControlsToBody()
         {
             // arrange
@@ -130,7 +130,7 @@ namespace UnitTests.Subtext.SubtextWeb.UI.Pages
             loader.Verify(l => l.LoadControl("Test"));
         }
 
-        [TestMethod]
+        [Test]
         public void InitializeControls_WithReferrer_LoadsMoreResultsControl()
         {
             // arrange
@@ -168,7 +168,7 @@ namespace UnitTests.Subtext.SubtextWeb.UI.Pages
             loader.Verify(l => l.LoadControl("Test"));
         }
 
-        [TestMethod]
+        [Test]
         public void InitializeControls_WithReferrerButOnlyHomepageControl_DoesNotLoadsMoreResultsControl()
         {
             // arrange
@@ -185,7 +185,7 @@ namespace UnitTests.Subtext.SubtextWeb.UI.Pages
             page.InitializeControls(loader.Object);
         }
 
-        [TestMethod]
+        [Test]
         public void InitializeControls_WithReferrerButNoControls_DoesNotLoadMoreResultsControl()
         {
             // arrange
@@ -202,7 +202,7 @@ namespace UnitTests.Subtext.SubtextWeb.UI.Pages
             page.InitializeControls(loader.Object);
         }
 
-        [TestMethod]
+        [Test]
         public void InitializeControls_WithLocalRequestAndReferrerInQueryString_LoadsMoreResultsControl()
         {
             // arrange

@@ -1,14 +1,14 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Ninject;
 using Subtext.Framework.Routing;
 
 namespace UnitTests.Subtext.Framework.Routing
 {
-    [TestClass]
+    [TestFixture]
     public class SubtextPageBuilderTests
     {
-        [TestMethod]
+        [Test]
         public void CtorSetsKernel()
         {
             //arrange

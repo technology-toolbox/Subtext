@@ -2,17 +2,17 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework.Routing;
 using Subtext.Framework.Web.HttpModules;
 
 namespace UnitTests.Subtext.Framework.Routing
 {
-    [TestClass]
+    [TestFixture]
     public class DirectoryRouteTests
     {
-        [TestMethod]
+        [Test]
         public void GetVirtualPath_WithoutSubolder_ReturnsUrlWithoutSubfolder()
         {
             //arrange
@@ -34,7 +34,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("admin/posts/foo.aspx", virtualPath.VirtualPath);
         }
 
-        [TestMethod]
+        [Test]
         public void GetVirtualPath_WithSubolder_ReturnsUrlWithSubfolder()
         {
             //arrange
@@ -57,7 +57,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("subfolder/admin/posts/foo.aspx", virtualPath.VirtualPath);
         }
 
-        [TestMethod]
+        [Test]
         public void Ctor_WithDirectoryNameArg_AppendsPathInfoCatchAll()
         {
             //arrange, act
@@ -68,7 +68,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("dir/{*pathInfo}", route.Url);
         }
 
-        [TestMethod]
+        [Test]
         public void Ctor_WithDirectoryNameArg_SetsDirectoryName()
         {
             //arrange, act
@@ -79,7 +79,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("dir", route.DirectoryName);
         }
 
-        [TestMethod]
+        [Test]
         public void GetRouteData_MatchingTheImplicitSubfolderRoute_ReturnsParentDirectoryRoute()
         {
             //arrange

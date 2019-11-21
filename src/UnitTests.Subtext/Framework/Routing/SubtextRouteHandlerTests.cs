@@ -4,16 +4,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using STRouting = Subtext.Framework.Routing;
 
 namespace UnitTests.Subtext.Framework.Routing
 {
-    [TestClass]
+    [TestFixture]
     public class SubtextRouteHandlerTests
     {
-        [TestMethod]
+        [Test]
         public void GetHandler_WhichReturnsIPageWithControls_SetsControls()
         {
             //arrange

@@ -15,7 +15,7 @@
 
 #endregion
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Scripting;
 
 namespace UnitTests.Subtext.Scripting
@@ -23,19 +23,19 @@ namespace UnitTests.Subtext.Scripting
     /// <summary>
     /// Summary description for ConnectionStringParseTests.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ConnectionStringParseTests
     {
-        [DataTestMethod]
-        [DataRow("Data Source=TEST;Initial Catalog=pubs;User Id=sa;Password=asdasd;", "TEST", "pubs", "sa", "asdasd")]
-        [DataRow("Data Source=;Initial Catalog=;User Id=;Password=;", "", "", "", "")]
-        [DataRow("Data Source = TEST;Initial Catalog = pubs;User Id = sa;Password = asdasd", "TEST", "pubs", "sa", "asdasd")
+        [RowTest]
+        [Row("Data Source=TEST;Initial Catalog=pubs;User Id=sa;Password=asdasd;", "TEST", "pubs", "sa", "asdasd")]
+        [Row("Data Source=;Initial Catalog=;User Id=;Password=;", "", "", "", "")]
+        [Row("Data Source = TEST;Initial Catalog = pubs;User Id = sa;Password = asdasd", "TEST", "pubs", "sa", "asdasd")
         ]
-        [DataRow("Data Source = TEST;User Id = sa;Password = asdasd;Initial Catalog = pubs", "TEST", "pubs", "sa", "asdasd")
+        [Row("Data Source = TEST;User Id = sa;Password = asdasd;Initial Catalog = pubs", "TEST", "pubs", "sa", "asdasd")
         ]
-        [DataRow("Server=127.0.0.1;Database=pubs;User ID=sa;Password=asdasd;Trusted_Connection=False", "127.0.0.1", "pubs",
+        [Row("Server=127.0.0.1;Database=pubs;User ID=sa;Password=asdasd;Trusted_Connection=False", "127.0.0.1", "pubs",
             "sa", "asdasd")]
-        [DataRow("Server= 127.0.0.1 ; Database = SubtextData; User ID = sa ; Password = asdasd ; Trusted_Connection = False"
+        [Row("Server= 127.0.0.1 ; Database = SubtextData; User ID = sa ; Password = asdasd ; Trusted_Connection = False"
             , "127.0.0.1", "SubtextData", "sa", "asdasd")]
         public void CanVariousStandardSecurityConnectionStrings(string connectionString, string dataSource,
                                                                 string database, string userId, string password)
@@ -54,7 +54,7 @@ namespace UnitTests.Subtext.Scripting
             Assert.AreEqual(password, connectionInfo2.Password, "Did not parse the password correctly.");
         }
 
-        [TestMethod]
+        [Test]
         public void Parse_WithSqlExpressAttachConnectionString_DoesNotLoseAttach()
         {
             // arrange
@@ -70,7 +70,7 @@ namespace UnitTests.Subtext.Scripting
             Assert.AreEqual(connectionString, connectionInfo.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void CanParseSqlExpressConnectionString()
         {
             string connectionString =
@@ -81,7 +81,7 @@ namespace UnitTests.Subtext.Scripting
             Assert.AreEqual(@".\SQLExpress", connectionInfo.Server);
         }
 
-        [TestMethod]
+        [Test]
         public void CanImplicitlyConvertConnectionStringToString()
         {
             ConnectionString connection =

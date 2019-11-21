@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Lucene.Net.Analysis;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Configuration;
 
 namespace UnitTests.Subtext.Framework.Configuration
 {
-    [TestClass]
+    [TestFixture]
     public class FullTextSearchEngineSettingsTests
     {
 
-        [TestMethod]
+        [Test]
         public void FullTextSearchEngineSettings_WithEmptyConfig_LanguageIsEnglish()
         {
             FullTextSearchEngineSettings settings = FullTextSearchEngineSettings.Settings;
             Assert.AreEqual("English", settings.Language);
         }
 
-        [TestMethod]
+        [Test]
         public void FullTextSearchEngineSettings_WithEmptyConfig_StopWordsIsDefaultOne()
         {
             FullTextSearchEngineSettings settings = FullTextSearchEngineSettings.Settings;
             Assert.AreEqual(StopAnalyzer.ENGLISH_STOP_WORDS_SET, settings.StopWords);
         }
 
-        [TestMethod]
+        [Test]
         public void FullTextSearchEngineSettings_WithStopWordsSpecified_StopWordsAreTheCorrectOnes()
         {
             FullTextSearchEngineSettings settings = FullTextSearchEngineSettings.Settings;
@@ -38,7 +38,7 @@ namespace UnitTests.Subtext.Framework.Configuration
             Assert.IsFalse(settings.StopWords.Contains("ch"));
         }
 
-        [TestMethod]
+        [Test]
         public void FullTextSearchEngineSettings_WithEmptyConfig_TuningParametersAreDefault()
         {
             FullTextSearchEngineSettings settings = FullTextSearchEngineSettings.Settings;
@@ -46,7 +46,7 @@ namespace UnitTests.Subtext.Framework.Configuration
             Assert.AreEqual(1f, settings.Parameters.EntryNameBoost);
         }
 
-        [TestMethod]
+        [Test]
         public void FullTextSearchEngineSettings_WithConfig_MinimumDocumentFrequencyIsAsSet()
         {
             FullTextSearchEngineSettings settings = FullTextSearchEngineSettings.Settings;
@@ -54,14 +54,14 @@ namespace UnitTests.Subtext.Framework.Configuration
             Assert.AreEqual(10, settings.Parameters.MinimumDocumentFrequency);
         }
 
-        [TestMethod]
+        [Test]
         public void FullTextSearchEngineSettings_WithEmptyConfig_IndexFolderLocationIsAdd_Data()
         {
             FullTextSearchEngineSettings settings = FullTextSearchEngineSettings.Settings;
             Assert.AreEqual("~/App_Data", settings.IndexFolderLocation);
         }
 
-        [TestMethod]
+        [Test]
         public void FullTextSearchEngineSettings_WithEmptyConfig_IsEnabledIsTrue()
         {
             FullTextSearchEngineSettings settings = FullTextSearchEngineSettings.Settings;

@@ -20,7 +20,7 @@ using System.Collections.Specialized;
 using System.Security.Principal;
 using System.Threading;
 using System.Web.UI.WebControls;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework;
 using Subtext.Providers.BlogEntryEditor.FCKeditor;
@@ -30,14 +30,14 @@ namespace UnitTests.Subtext.SubtextWeb.Providers.RichTextEditor
     /// <summary>
     /// Summary description for FCKeditorProviderTests.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class FCKeditorProviderTests
     {
         string _hostName;
         FckBlogEntryEditorProvider frtep;
 
-        [TestInitialize]
-        public void TestInitialize()
+        [SetUp]
+        public void SetUp()
         {
             _hostName = UnitTestHelper.GenerateUniqueHostname();
 
@@ -47,13 +47,13 @@ namespace UnitTests.Subtext.SubtextWeb.Providers.RichTextEditor
             UnitTestHelper.SetHttpContextWithBlogRequest(_hostName, "MyBlog", "Subtext.Web");
         }
 
-        [TestCleanup]
-        public void TestCleanup()
+        [TearDown]
+        public void TearDown()
         {
             Thread.CurrentPrincipal = null;
         }
 
-        [TestMethod]
+        [Test]
         public void SetControlID()
         {
             string test = "MyTestControlID";
@@ -61,7 +61,7 @@ namespace UnitTests.Subtext.SubtextWeb.Providers.RichTextEditor
             Assert.AreEqual(test, frtep.ControlId);
         }
 
-        [TestMethod]
+        [Test]
         public void SetText()
         {
             var blog = new Blog {Host = "localhost", Subfolder = "subfolder"};
@@ -74,7 +74,7 @@ namespace UnitTests.Subtext.SubtextWeb.Providers.RichTextEditor
             Assert.AreEqual(test, frtep.Xhtml);
         }
 
-        [TestMethod]
+        [Test]
         public void SetWidth()
         {
             Unit test = 200;
@@ -87,7 +87,7 @@ namespace UnitTests.Subtext.SubtextWeb.Providers.RichTextEditor
             Assert.AreEqual(test, frtep.Width);
         }
 
-        [TestMethod]
+        [Test]
         public void SetHeight()
         {
             Unit test = 100;
@@ -99,19 +99,19 @@ namespace UnitTests.Subtext.SubtextWeb.Providers.RichTextEditor
             Assert.AreEqual(test, frtep.Height);
         }
 
-        [TestMethod]
+        [Test]
         public void TestInitializationWithNullName()
         {
             UnitTestHelper.AssertThrowsArgumentNullException(() => frtep.Initialize(null, new NameValueCollection()));
         }
 
-        [TestMethod]
+        [Test]
         public void TestInitializationWithNullConfigValue()
         {
             UnitTestHelper.AssertThrowsArgumentNullException(() => frtep.Initialize("FCKProvider", null));
         }
 
-        [TestMethod]
+        [Test]
         public void TestInitializationWithEmptyWebFolder()
         {
             UnitTestHelper.AssertThrows<InvalidOperationException>(() => frtep.Initialize("FCKProvider", new NameValueCollection()));

@@ -1,13 +1,13 @@
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Util;
 
 namespace UnitTests.Subtext.Framework.Util
 {
-    [TestClass]
+    [TestFixture]
     public class SerializationHelperTests
     {
-        [TestMethod]
+        [Test]
         public void CanSerializeAndDeserializeToAndFromBase64()
         {
             TestStruct test;

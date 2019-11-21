@@ -2,7 +2,7 @@
 using System.Data;
 using System.Globalization;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Microsoft.ApplicationBlocks.Data;
 using Moq;
 using Subtext.Framework.Configuration;
@@ -12,10 +12,11 @@ using Subtext.Web.UI;
 
 namespace UnitTests.Subtext.SubtextWeb.UI
 {
-    [TestClass]
+    [TestFixture]
     public class UIHelpersTests
     {
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void ArchiveMonth_ReturnsLinksToMonthlyArchives()
         {
             // Arrange
@@ -41,7 +42,8 @@ namespace UnitTests.Subtext.SubtextWeb.UI
             Assert.AreEqual("/year/2011/month/1", linkCategory.Links.ElementAt(2).Url);
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void ArchiveMonth_ReturnsLinksToMonthlyArchives_UsingBlogTimeZone()
         {
             // Arrange

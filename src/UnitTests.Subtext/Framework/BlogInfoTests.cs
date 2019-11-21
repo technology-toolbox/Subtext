@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Web;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Extensibility.Interfaces;
 using Subtext.Framework;
 using Subtext.Framework.Configuration;
@@ -12,35 +12,35 @@ namespace UnitTests.Subtext.Framework
     /// <summary>
     /// Tests of the <see cref="Blog"/> class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class BlogTests
     {
-        [DataTestMethod]
-        [DataRow("example.com", "example.com", "Should not have altered the host because it doesn't start with www.")]
-        [DataRow("example.com:1234", "example.com:1234", "should not strip the port number")]
-        [DataRow("www.example.com:1234", "example.com:1234", "should not strip the port number, but should strip www.")]
-        [DataRow("www.example.com", "example.com", "Should strip www.")]
+        [RowTest]
+        [Row("example.com", "example.com", "Should not have altered the host because it doesn't start with www.")]
+        [Row("example.com:1234", "example.com:1234", "should not strip the port number")]
+        [Row("www.example.com:1234", "example.com:1234", "should not strip the port number, but should strip www.")]
+        [Row("www.example.com", "example.com", "Should strip www.")]
         public void StripWwwPrefixFromHostFunctionsProperly(string host, string expected, string message)
         {
             Assert.AreEqual(expected, Blog.StripWwwPrefixFromHost(host), message);
         }
 
-        [TestMethod]
+        [Test]
         public void StripWwwPrefixFromHost_WithNullHost_ThrowsArgumentNullException()
         {
             UnitTestHelper.AssertThrowsArgumentNullException(() => Blog.StripWwwPrefixFromHost(null));
         }
 
-        [DataTestMethod]
-        [DataRow("example.com", "example.com", "Should not have altered the host because it doesn't have the port.")]
-        [DataRow("example.com:1234", "example.com", "should strip the port number")]
-        [DataRow("www.example.com:12345678910", "www.example.com", "should strip the port number.")]
+        [RowTest]
+        [Row("example.com", "example.com", "Should not have altered the host because it doesn't have the port.")]
+        [Row("example.com:1234", "example.com", "should strip the port number")]
+        [Row("www.example.com:12345678910", "www.example.com", "should strip the port number.")]
         public void StripPortFromHostFunctionsProperly(string host, string expected, string message)
         {
             Assert.AreEqual(expected, Blog.StripPortFromHost(host), message);
         }
 
-        [TestMethod]
+        [Test]
         public void StripPortFromHost_WithNullHost_ThrowsArgumentNullException()
         {
             UnitTestHelper.AssertThrowsArgumentNullException(() => Blog.StripPortFromHost(null));
@@ -49,7 +49,7 @@ namespace UnitTests.Subtext.Framework
         /// <summary>
         /// Makes sure we can setup the fake HttpContext.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void SetHttpContextWithBlogRequestDoesADecentSimulation()
         {
             UnitTestHelper.SetHttpContextWithBlogRequest("localhost", "", "");
@@ -67,7 +67,7 @@ namespace UnitTests.Subtext.Framework
             Assert.AreEqual(HttpContext.Current.Request.ApplicationPath, "/Subtext.Web");
         }
 
-        [TestMethod]
+        [Test]
         public void PropertyGetSetTests()
         {
             var blog = new Blog();
@@ -138,7 +138,8 @@ namespace UnitTests.Subtext.Framework
             UnitTestHelper.AssertSimpleProperties(blog, "OpenIdUrl");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanGetBlogs()
         {
             // arrange
@@ -148,12 +149,12 @@ namespace UnitTests.Subtext.Framework
             IPagedCollection<Blog> blogs = new DatabaseObjectProvider().GetBlogs(0, int.MaxValue, ConfigurationFlags.None);
 
             // assert
-            Assert.IsTrue(blogs.Count >= 1);
+            Assert.GreaterEqualThan(blogs.Count, 1);
             var blog = blogs.First(b => b.Id == Config.CurrentBlog.Id);
             Assert.IsNotNull(blog);
         }
 
-        [TestMethod]
+        [Test]
         public void CanTestForEquality()
         {
             var blog = new Blog();
@@ -166,7 +167,7 @@ namespace UnitTests.Subtext.Framework
             Assert.IsTrue(blog.Equals(blog2));
         }
 
-        [TestMethod]
+        [Test]
         public void CanGetDefaultTimeZone()
         {
             var blog = new Blog();
@@ -174,7 +175,7 @@ namespace UnitTests.Subtext.Framework
             Assert.IsNotNull(blog.TimeZone);
         }
 
-        [TestMethod]
+        [Test]
         public void CanGetLanguageAndLanguageCode()
         {
             var blog = new Blog();
@@ -187,7 +188,7 @@ namespace UnitTests.Subtext.Framework
             Assert.AreEqual("fr", blog.LanguageCode);
         }
 
-        [TestMethod]
+        [Test]
         public void HasNewsReturnsProperResult()
         {
             var blog = new Blog();
@@ -196,7 +197,7 @@ namespace UnitTests.Subtext.Framework
             Assert.IsTrue(blog.HasNews);
         }
 
-        [TestMethod]
+        [Test]
         public void CanGetHashCode()
         {
             var blog = new Blog();
@@ -206,7 +207,7 @@ namespace UnitTests.Subtext.Framework
             Assert.AreNotEqual(0, blog.GetHashCode());
         }
 
-        [TestMethod]
+        [Test]
         public void CanSetFeedBurnerName()
         {
             var blog = new Blog();
@@ -217,7 +218,7 @@ namespace UnitTests.Subtext.Framework
             Assert.IsTrue(blog.RssProxyEnabled);
         }
 
-        [TestMethod]
+        [Test]
         public void GetBlogsByHostThrowsArgumentNullException()
         {
             UnitTestHelper.AssertThrowsArgumentNullException(() =>
@@ -225,13 +226,13 @@ namespace UnitTests.Subtext.Framework
                                                                                    ConfigurationFlags.IsActive));
         }
 
-        [TestMethod]
+        [Test]
         public void RssProxyUrl_WithInvalidCharacters_ThrowsInvalidOperationException()
         {
             UnitTestHelper.AssertThrows<InvalidOperationException>(() => new Blog().RssProxyUrl = "\\");
         }
 
-        [TestMethod]
+        [Test]
         public void OpenIdUrl_WhenSetToValueWithoutHttp_PrependsHttp()
         {
             // arrange
@@ -244,7 +245,7 @@ namespace UnitTests.Subtext.Framework
             Assert.AreEqual("http://openid.example.com", blog.OpenIdUrl);
         }
 
-        [TestMethod]
+        [Test]
         public void OpenIdUrl_WhenSetToValueWithHttp_SetsUrl()
         {
             // arrange
@@ -257,7 +258,7 @@ namespace UnitTests.Subtext.Framework
             Assert.AreEqual("http://openid.example.com", blog.OpenIdUrl);
         }
 
-        [TestMethod]
+        [Test]
         public void OpenIdUrl_WhenSetToNull_IsNull()
         {
             // arrange

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Xml;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Extensibility;
 using Subtext.Framework;
@@ -19,13 +19,14 @@ namespace UnitTests.Subtext.Framework.Syndication
     /// <summary>
     /// Tests of the RssHandler http handler class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class RssHandlerTests
     {
         /// <summary>
         /// Tests writing a simple RSS feed from some database entries.
         /// </summary>
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void RssWriterProducesValidFeedFromDatabase()
         {
             var repository = new DatabaseObjectProvider();
@@ -71,7 +72,8 @@ namespace UnitTests.Subtext.Framework.Syndication
                             "Not what we expected for the link.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void RssWriterProducesValidFeedWithEnclosureFromDatabase()
         {
             string hostName = UnitTestHelper.GenerateUniqueString() + ".com";
@@ -131,7 +133,8 @@ namespace UnitTests.Subtext.Framework.Syndication
         /// <summary>
         /// Tests that a simple regular RSS feed works.
         /// </summary>
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void RssHandlerProducesValidRssFeed()
         {
             string hostName = UnitTestHelper.GenerateUniqueHostname();
@@ -174,7 +177,8 @@ namespace UnitTests.Subtext.Framework.Syndication
         /// <summary>
         /// Tests that items without a date published are not syndicated.
         /// </summary>
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void RssHandlerHandlesDatePublishedUtcProperly()
         {
             // arrange
@@ -236,7 +240,8 @@ namespace UnitTests.Subtext.Framework.Syndication
         /// <summary>
         /// Tests that the RssHandler orders items by DateSyndicated.
         /// </summary>
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void RssHandlerSortsByDatePublishedUtc()
         {
             // Setup
@@ -318,7 +323,8 @@ namespace UnitTests.Subtext.Framework.Syndication
                             "Not what we expected for the second title.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void RssHandlerHandlesDoesNotSyndicateFuturePosts()
         {
             // Arrange
@@ -379,7 +385,8 @@ namespace UnitTests.Subtext.Framework.Syndication
         /// properly compressed.  USed the RSS Bandit decompress code 
         /// to decompress the feed and test it.
         /// </summary>
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         [Ignore("Need to review")]
         public void TestCompressedFeedWorks()
         {

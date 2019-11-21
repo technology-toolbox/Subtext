@@ -1,26 +1,26 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Scripting;
 
 namespace UnitTests.Subtext.Scripting
 {
-    [TestClass]
+    [TestFixture]
     public class ScriptCollectionTests
     {
-        [TestMethod]
+        [Test]
         public void AddRangeWithNullArgumentThrowsArgumentNullException()
         {
             ScriptCollection scripts = Script.ParseScripts("/* Test */");
             UnitTestHelper.AssertThrowsArgumentNullException(() => scripts.AddRange(null));
         }
 
-        [TestMethod]
+        [Test]
         public void FullScriptTextReturnsFullScript()
         {
             ScriptCollection scripts = Script.ParseScripts("/* Test */");
             Assert.AreEqual("/* Test */", scripts.FullScriptText);
         }
 
-        [TestMethod]
+        [Test]
         public void AddRangeIncrementsScriptCountWhenAddingAScript()
         {
             ScriptCollection scripts = Script.ParseScripts("/* Test */");

@@ -18,7 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Extensibility;
 using Subtext.Framework.Components;
 using Subtext.Framework.Configuration;
@@ -28,11 +28,11 @@ using UnitTests.Subtext.Framework.Util;
 
 namespace UnitTests.Subtext.Framework.Components.EntryTests
 {
-    [TestClass]
+    [TestFixture]
     public class FutureEntriesGetTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        [SetUp]
+        public void Setup()
         {
             string hostname = UnitTestHelper.GenerateUniqueString();
             var repository = new DatabaseObjectProvider();
@@ -42,7 +42,8 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             Config.CurrentBlog.TimeZoneId = TimeZonesTest.HawaiiTimeZoneId;
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetRecentEntries_WithFuturePosts_OnlyReturnsPastPosts()
         {
             // Arrange
@@ -68,7 +69,8 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             Assert.AreEqual(entries.ElementAt(2).Id, entryOne.Id);
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetRecentPostsDoesNotIncludeFuturePosts()
         {
             // Arrange
@@ -94,7 +96,8 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             Assert.AreEqual(entries.ElementAt(1).Id, entryZero.Id, "Ordering is off.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetEntriesByTagDoesNotIncludeFuturePosts()
         {
             // Arrange
@@ -125,7 +128,8 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             Assert.AreEqual(entries.ElementAt(1).Id, entryZero.Id, "Ordering is off.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetEntriesByCategoryDoesNotIncludeFuturePosts()
         {
             // Arrange
@@ -158,7 +162,8 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             Assert.AreEqual(entries.ElementAt(1).Id, entryZero.Id, "Ordering is off.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetPostsByDayRangeDoesNotIncludeFuturePosts()
         {
             // Arrange
@@ -185,7 +190,8 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             Assert.AreEqual(entries.ElementAt(1).Id, entryZero.Id, "Ordering is off.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetPostCollectionByMonthDoesNotIncludeFuturePosts()
         {
             // Arrange

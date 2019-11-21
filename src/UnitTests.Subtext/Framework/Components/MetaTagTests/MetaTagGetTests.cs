@@ -17,19 +17,20 @@
 
 using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework;
 using Subtext.Framework.Components;
 using Subtext.Framework.Data;
 
 namespace UnitTests.Subtext.Framework.Components.MetaTagTests
 {
-    [TestClass]
+    [TestFixture]
     public class MetaTagGetTests
     {
         private Blog blog;
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetReturnsZeroWhenNoMetaTagsExistForBlog()
         {
             var repository = new DatabaseObjectProvider();
@@ -38,7 +39,8 @@ namespace UnitTests.Subtext.Framework.Components.MetaTagTests
                             "Shouldn't have found any MetaTags for this blog.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetReturnsZeroWhenNoMetaTagsExistForEntry()
         {
             blog = UnitTestHelper.CreateBlogAndSetupContext();
@@ -55,7 +57,8 @@ namespace UnitTests.Subtext.Framework.Components.MetaTagTests
                             "Shouldn't have found any MetaTags for this entry.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanGetMetaTagsForBlog()
         {
             blog = UnitTestHelper.CreateBlogAndSetupContext();
@@ -68,7 +71,8 @@ namespace UnitTests.Subtext.Framework.Components.MetaTagTests
             Assert.AreEqual(2, tags.Count, "Should be two tags for this blog.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanGetMetaTagsForEntry()
         {
             blog = UnitTestHelper.CreateBlogAndSetupContext();

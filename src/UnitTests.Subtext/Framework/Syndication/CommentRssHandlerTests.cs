@@ -1,6 +1,6 @@
 using System;
 using System.Xml;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework;
 using Subtext.Framework.Components;
@@ -16,7 +16,7 @@ namespace UnitTests.Subtext.Framework.Syndication
     /// <summary>
     /// Tests the CommentRSS HttpHandler.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class CommentRssHandlerTests
     {
         /// <summary>
@@ -25,7 +25,8 @@ namespace UnitTests.Subtext.Framework.Syndication
         /// the entry has no feed items.
         /// </para>
         /// </summary>
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CommentRssHandlerProducesValidEmptyFeed()
         {
             string hostName = UnitTestHelper.GenerateUniqueHostname();

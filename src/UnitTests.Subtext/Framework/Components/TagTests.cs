@@ -1,13 +1,13 @@
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Components;
 
 namespace UnitTests.Subtext.Framework.Components
 {
-    [TestClass]
+    [TestFixture]
     public class TagTests
     {
-        [TestMethod]
+        [Test]
         public void CanSetAndGetSimpleProperties()
         {
             var tag = new Tag(new KeyValuePair<string, int>());

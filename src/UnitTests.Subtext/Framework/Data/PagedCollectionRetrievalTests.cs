@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Microsoft.ApplicationBlocks.Data;
 using Moq;
 using Subtext.Extensibility;
@@ -17,7 +17,7 @@ using Subtext.Framework.Web.HttpModules;
 
 namespace UnitTests.Subtext.Framework.Data
 {
-    [TestClass]
+    [TestFixture]
     public class PagedCollectionRetrievalTests
     {
         string _hostName;
@@ -27,12 +27,13 @@ namespace UnitTests.Subtext.Framework.Data
         /// number of pages and entries per page are created 
         /// for various page sizes.
         /// </summary>
-        [DatabaseIntegrationTestMethod]
-        [DataRow(11, 10, 2, 1)]
-        [DataRow(11, 5, 3, 1)]
-        [DataRow(12, 5, 3, 2)]
-        [DataRow(10, 5, 2, 5)]
-        [DataRow(10, 20, 1, 10)]
+        [RowTest]
+        [Row(11, 10, 2, 1)]
+        [Row(11, 5, 3, 1)]
+        [Row(12, 5, 3, 2)]
+        [Row(10, 5, 2, 5)]
+        [Row(10, 20, 1, 10)]
+        [RollBack2]
         public void GetPagedEntriesHandlesPagingProperly(int total, int pageSize, int expectedPageCount,
                                                          int itemsCountOnLastPage)
         {
@@ -47,12 +48,13 @@ namespace UnitTests.Subtext.Framework.Data
         /// number of pages and entries per page are created 
         /// for various page sizes.
         /// </summary>
-        [DatabaseIntegrationTestMethod]
-        [DataRow(11, 10, 2, 1)]
-        [DataRow(11, 5, 3, 1)]
-        [DataRow(12, 5, 3, 2)]
-        [DataRow(10, 5, 2, 5)]
-        [DataRow(10, 20, 1, 10)]
+        [RowTest]
+        [Row(11, 10, 2, 1)]
+        [Row(11, 5, 3, 1)]
+        [Row(12, 5, 3, 2)]
+        [Row(10, 5, 2, 5)]
+        [Row(10, 20, 1, 10)]
+        [RollBack2]
         public void GetPagedEntriesByCategoryHandlesPagingProperly(int total, int pageSize, int expectedPageCount,
                                                                    int itemsCountOnLastPage)
         {
@@ -68,13 +70,14 @@ namespace UnitTests.Subtext.Framework.Data
         /// number of pages and entries per page are created 
         /// for various page sizes.
         /// </summary>
-        [DatabaseIntegrationTestMethod]
+        [RowTest]
         [Ignore("TODO")]
-        [DataRow(11, 10, 2, 1)]
-        //[DataRow(11, 5, 3, 1)]
-        //[DataRow(12, 5, 3, 2)]
-        //[DataRow(10, 5, 2, 5)]
-        //[DataRow(10, 20, 1, 10)]
+        [Row(11, 10, 2, 1)]
+        //[Row(11, 5, 3, 1)]
+        //[Row(12, 5, 3, 2)]
+        //[Row(10, 5, 2, 5)]
+        //[Row(10, 20, 1, 10)]
+        [RollBack2]
         public void GetPagedFeedbackHandlesPagingProperly(int total, int pageSize, int expectedPageCount,
                                                           int itemsCountOnLastPage)
         {
@@ -85,12 +88,13 @@ namespace UnitTests.Subtext.Framework.Data
                                   total);
         }
 
-        [DatabaseIntegrationTestMethod]
-        [DataRow(11, 10, 2, 1)]
-        [DataRow(11, 5, 3, 1)]
-        [DataRow(12, 5, 3, 2)]
-        [DataRow(10, 5, 2, 5)]
-        [DataRow(10, 20, 1, 10)]
+        [RowTest]
+        [Row(11, 10, 2, 1)]
+        [Row(11, 5, 3, 1)]
+        [Row(12, 5, 3, 2)]
+        [Row(10, 5, 2, 5)]
+        [Row(10, 20, 1, 10)]
+        [RollBack2]
         public void GetPagedLinksHandlesPagingProperly(int total, int pageSize, int expectedPageCount,
                                                        int itemsCountOnLastPage)
         {
@@ -101,12 +105,13 @@ namespace UnitTests.Subtext.Framework.Data
             AssertPagedCollection(tester, expectedPageCount, itemsCountOnLastPage, pageSize, total);
         }
 
-        [DatabaseIntegrationTestMethod]
-        [DataRow(11, 10, 2, 1)]
-        [DataRow(11, 5, 3, 1)]
-        [DataRow(12, 5, 3, 2)]
-        [DataRow(10, 5, 2, 5)]
-        [DataRow(10, 20, 1, 10)]
+        [RowTest]
+        [Row(11, 10, 2, 1)]
+        [Row(11, 5, 3, 1)]
+        [Row(12, 5, 3, 2)]
+        [Row(10, 5, 2, 5)]
+        [Row(10, 20, 1, 10)]
+        [RollBack2]
         public void GetPagedLogEntriesHandlesPagingProperly(int total, int pageSize, int expectedPageCount,
                                                             int itemsCountOnLastPage)
         {
@@ -117,12 +122,13 @@ namespace UnitTests.Subtext.Framework.Data
             AssertPagedCollection(tester, expectedPageCount, itemsCountOnLastPage, pageSize, total);
         }
 
-        [DatabaseIntegrationTestMethod]
-        [DataRow(11, 10, 2, 1)]
-        [DataRow(11, 5, 3, 1)]
-        [DataRow(12, 5, 3, 2)]
-        [DataRow(10, 5, 2, 5)]
-        [DataRow(10, 20, 1, 10)]
+        [RowTest]
+        [Row(11, 10, 2, 1)]
+        [Row(11, 5, 3, 1)]
+        [Row(12, 5, 3, 2)]
+        [Row(10, 5, 2, 5)]
+        [Row(10, 20, 1, 10)]
+        [RollBack2]
         public void GetPagedMetaTagsHandlesPagingProperly(int total, int pageSize, int expectedPageCount,
                                                           int itemsCountOnLastPage)
         {
@@ -133,12 +139,13 @@ namespace UnitTests.Subtext.Framework.Data
             AssertPagedCollection(tester, expectedPageCount, itemsCountOnLastPage, pageSize, total);
         }
 
-        [DatabaseIntegrationTestMethod]
-        [DataRow(11, 10, 2, 1)]
-        [DataRow(11, 5, 3, 1)]
-        [DataRow(12, 5, 3, 2)]
-        [DataRow(10, 5, 2, 5)]
-        [DataRow(10, 20, 1, 10)]
+        [RowTest]
+        [Row(11, 10, 2, 1)]
+        [Row(11, 5, 3, 1)]
+        [Row(12, 5, 3, 2)]
+        [Row(10, 5, 2, 5)]
+        [Row(10, 20, 1, 10)]
+        [RollBack2]
         public void GetPagedKeywordsHandlesPagingProperly(int total, int pageSize, int expectedPageCount,
                                                           int itemsCountOnLastPage)
         {
@@ -149,12 +156,13 @@ namespace UnitTests.Subtext.Framework.Data
             AssertPagedCollection(tester, expectedPageCount, itemsCountOnLastPage, pageSize, total);
         }
 
-        [DatabaseIntegrationTestMethod]
-        [DataRow(11, 10, 2, 1)]
-        [DataRow(11, 5, 3, 1)]
-        [DataRow(12, 5, 3, 2)]
-        [DataRow(10, 5, 2, 5)]
-        [DataRow(10, 20, 1, 10)]
+        [RowTest]
+        [Row(11, 10, 2, 1)]
+        [Row(11, 5, 3, 1)]
+        [Row(12, 5, 3, 2)]
+        [Row(10, 5, 2, 5)]
+        [Row(10, 20, 1, 10)]
+        [RollBack2]
         public void GetPagedBlogsHandlesPagingProperly(int total, int pageSize, int expectedPageCount,
                                                        int itemsCountOnLastPage)
         {
@@ -198,11 +206,16 @@ namespace UnitTests.Subtext.Framework.Data
             Assert.AreEqual(total, totalSeen, "We did not see the expected number of records.");
         }
 
-        [TestInitialize]
-        public void TestInitialize()
+        [SetUp]
+        public void SetUp()
         {
             _hostName = UnitTestHelper.GenerateUniqueString();
             UnitTestHelper.SetHttpContextWithBlogRequest(_hostName, "blog");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
         }
     }
 

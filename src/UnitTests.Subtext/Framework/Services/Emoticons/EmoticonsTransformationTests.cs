@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework.Emoticons;
 
 namespace UnitTests.Subtext.Framework.Emoticons
 {
-    [TestClass]
+    [TestFixture]
     public class EmoticonsTransformationTests
     {
-        [TestMethod]
+        [Test]
         public void Transform_WithSmiley_TransformsSmiley()
         {
             //arrange

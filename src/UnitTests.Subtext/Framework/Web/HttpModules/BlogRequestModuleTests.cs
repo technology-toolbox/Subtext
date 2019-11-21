@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Specialized;
 using System.Web;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Moq.Stub;
 using Subtext.Framework;
@@ -10,10 +10,10 @@ using Subtext.Framework.Web.HttpModules;
 
 namespace UnitTests.Subtext.Framework.Web.HttpModules
 {
-    [TestClass]
+    [TestFixture]
     public class BlogRequestModuleTests
     {
-        [TestMethod]
+        [Test]
         public void ConvertRequestToBlogRequest_WithRequestForCorrectHost_ReturnsBlogRequest()
         {
             //arrange
@@ -36,7 +36,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             Assert.IsNotNull(request);
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertRequestToBlogRequest_WithRequestForAlternateHost_RedirectsToPrimaryHost()
         {
             //arrange
@@ -62,7 +62,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             httpResponse.Verify(r => r.RedirectPermanent("http://www.example.com/", true));
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertRequestToBlogRequest_WithNoMatchingBlog_RedirectsToBlogNotConfiguredPage()
         {
             //arrange
@@ -83,7 +83,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             httpResponse.Verify(r => r.Redirect("~/install/BlogNotConfiguredError.aspx", true));
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertRequestToBlogRequest_MatchingInactiveBlog_RedirectsToBlogInactivePage()
         {
             //arrange
@@ -105,7 +105,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             httpResponse.Verify(r => r.Redirect("~/SystemMessages/BlogNotActive.aspx", true));
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertRequestToBlogRequestWithRequestForLoginPage_MatchingInactiveBlog_DoesNotRedirect()
         {
             //arrange
@@ -126,7 +126,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             Assert.IsNotNull(request);
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertRequestToBlogRequest_WithNoMatchingBlogButWithRequestForLoginPage_SetsBlogRequestBlogToNull()
         {
             //arrange
@@ -149,7 +149,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             Assert.IsNull(request.Blog);
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertRequestToBlogRequest_WithRequestForInstallationDirectory_ReturnsNullBlog()
         {
             //arrange
@@ -173,7 +173,7 @@ namespace UnitTests.Subtext.Framework.Web.HttpModules
             Assert.IsNull(request.Blog);
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertRequestToBlogRequestForStaticImage_WithNoMatchingBlog_DoesNotRedirect()
         {
             //arrange

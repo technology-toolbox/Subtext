@@ -1,12 +1,12 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Text;
 
 namespace UnitTests.Subtext.Framework.Text
 {
-    [TestClass]
+    [TestFixture]
     public class LiteralFormatTests
     {
-        [TestMethod]
+        [Test]
         public void Literal_WithEscapedCloseBraces_CollapsesDoubleBraces()
         {
             //arrange
@@ -17,7 +17,7 @@ namespace UnitTests.Subtext.Framework.Text
             Assert.AreEqual("hello}world", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Literal_WithEscapedOpenBraces_CollapsesDoubleBraces()
         {
             //arrange

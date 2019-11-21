@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BlogML.Xml;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Extensibility.Interfaces;
 using Subtext.Framework;
@@ -10,10 +10,10 @@ using Subtext.ImportExport;
 
 namespace UnitTests.Subtext.BlogMl
 {
-    [TestClass]
+    [TestFixture]
     public class BlogMLSourceTests
     {
-        [TestMethod]
+        [Test]
         public void GetBlog_WithBlogInSubtextContext_ConvertsBlogToBlogML()
         {
             // arrange
@@ -32,7 +32,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.AreEqual("Converted", blogMLBlog.Title);
         }
 
-        [TestMethod]
+        [Test]
         public void GetBlog_WithBlogHavingCategories_GetsCategoriesFromSource()
         {
             // arrange
@@ -53,7 +53,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.AreEqual("The First Category", blogMLBlog.Categories[0].Title);
         }
 
-        [TestMethod]
+        [Test]
         public void GetBlogPosts_WithBlogHavingPosts_ReturnsAllPosts()
         {
             // arrange
@@ -75,7 +75,7 @@ namespace UnitTests.Subtext.BlogMl
             Assert.AreEqual("Test Post Title", blogMLPosts.ToList().First().Title);
         }
 
-        [TestMethod]
+        [Test]
         public void GetBlogPosts_WithBlogPostHavingCategories_ReturnsPostsWithCategories()
         {
             // arrange

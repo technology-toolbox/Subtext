@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Util;
 
 namespace UnitTests.Subtext.Framework.Util
@@ -6,7 +6,7 @@ namespace UnitTests.Subtext.Framework.Util
     /// <summary>
     /// Unit tests for the <see cref="KeyWords"/> class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class KeywordsTests
     {
     }

@@ -1,8 +1,8 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 
 namespace UnitTests.Subtext.Framework
 {
-    [TestClass]
+    [TestFixture]
     public class EntryTrackerTests
     {
     }

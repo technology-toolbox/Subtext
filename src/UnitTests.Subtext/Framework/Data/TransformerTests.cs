@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MbUnit.Framework;
 using Moq;
 using Subtext.Framework;
 using Subtext.Framework.Components;
@@ -7,10 +7,10 @@ using Subtext.Framework.Routing;
 
 namespace UnitTests.Subtext.Framework.Data
 {
-    [TestClass]
+    [TestFixture]
     public class TransformerTests
     {
-        [TestMethod]
+        [Test]
         public void MergeLinkCategoriesIntoSingleLinkCategory_WithMultipleCategories_ReturnsSingleCategoryWithLinkCollection()
         {
             // arrange
@@ -32,7 +32,7 @@ namespace UnitTests.Subtext.Framework.Data
             Assert.AreEqual(2, mergedLinkCategory.Links.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void MergeLinkCategoriesIntoSingleLinkCategory_WithNoCategories_ReturnsNull()
         {
             // arrange

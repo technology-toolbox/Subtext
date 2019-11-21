@@ -1,13 +1,13 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Components;
 using Subtext.Web.Admin.Feedback;
 
 namespace UnitTests.Subtext.SubtextWeb.Admin
 {
-    [TestClass]
+    [TestFixture]
     public class FeedbackTests
     {
-        [TestMethod]
+        [Test]
         public void WhenFeedbackApprovedUiShowsRelevantItems()
         {
             FeedbackState state = FeedbackState.GetUiState(FeedbackStatusFlag.Approved);
@@ -22,7 +22,7 @@ namespace UnitTests.Subtext.SubtextWeb.Admin
             Assert.AreEqual("<em>There are no approved comments to display.</em>", state.NoCommentsHtml);
         }
 
-        [TestMethod]
+        [Test]
         public void WhenFeedbackNeedsModerationUiShowsRelevantItems()
         {
             FeedbackState state = FeedbackState.GetUiState(FeedbackStatusFlag.NeedsModeration);
@@ -38,7 +38,7 @@ namespace UnitTests.Subtext.SubtextWeb.Admin
             Assert.AreEqual("<em>No Entries Need Moderation.</em>", state.NoCommentsHtml);
         }
 
-        [TestMethod]
+        [Test]
         public void WhenFeedbackFlaggedAsSpamUiShowsRelevantItems()
         {
             FeedbackState state = FeedbackState.GetUiState(FeedbackStatusFlag.FlaggedAsSpam);
@@ -54,7 +54,7 @@ namespace UnitTests.Subtext.SubtextWeb.Admin
             Assert.AreEqual("<em>No Entries Flagged as SPAM.</em>", state.NoCommentsHtml);
         }
 
-        [TestMethod]
+        [Test]
         public void WhenFeedbackDeletedUiShowsRelevantItems()
         {
             FeedbackState state = FeedbackState.GetUiState(FeedbackStatusFlag.Deleted);

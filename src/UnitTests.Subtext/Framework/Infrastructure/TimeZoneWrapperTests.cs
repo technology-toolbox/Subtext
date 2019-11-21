@@ -1,15 +1,15 @@
 using System;
 using System.Globalization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Util;
 using Subtext.Infrastructure;
 
 namespace UnitTests.Subtext.Framework.Infrastructure
 {
-    [TestClass]
+    [TestFixture]
     public class TimeZoneWrapperTests
     {
-        [TestMethod]
+        [Test]
         public void Now_ReturnsTimeInLocalTimeZone()
         {
             // arrange
@@ -27,7 +27,7 @@ namespace UnitTests.Subtext.Framework.Infrastructure
             Assert.AreEqual(expected, now);
         }
 
-        [TestMethod]
+        [Test]
         public void UtcNow_ReturnsSpecifiedUtcNow()
         {
             // arrange
@@ -42,7 +42,7 @@ namespace UnitTests.Subtext.Framework.Infrastructure
             Assert.AreEqual(expectedUtcNow, utcNow);
         }
 
-        [TestMethod]
+        [Test]
         public void ServerNow_ReturnsLocalTimeOnServer()
         {
             // arrange
@@ -61,7 +61,7 @@ namespace UnitTests.Subtext.Framework.Infrastructure
             Assert.AreEqual(expected, serverNow);
         }
 
-        [TestMethod]
+        [Test]
         public void ToUtc_ConvertsSpecifiedTimeInTimeZone_ToUtcTime()
         {
             // arrange
@@ -79,7 +79,7 @@ namespace UnitTests.Subtext.Framework.Infrastructure
             Assert.AreEqual(expectedUtcDateTime, utc);
         }
 
-        [TestMethod]
+        [Test]
         public void ToServerDateTime_ConvertsSpecifiedTimeInTimeZone_ToServerTimeZone()
         {
             // arrange
@@ -99,7 +99,7 @@ namespace UnitTests.Subtext.Framework.Infrastructure
             Assert.AreEqual(iranDateTime, serverDateTime);
         }
 
-        [TestMethod]
+        [Test]
         public void FromUtc_ConvertsSpecifiedTime_ToBlogTimeZoneFromUtc()
         {
             // arrange
@@ -117,7 +117,7 @@ namespace UnitTests.Subtext.Framework.Infrastructure
             Assert.AreEqual(expected, fijiDateTime);
         }
 
-        [TestMethod]
+        [Test]
         public void FromUtc_ConvertsSpecifiedLocalTime_ToBlogTimeZoneFromUtc()
         {
             // arrange
@@ -134,7 +134,7 @@ namespace UnitTests.Subtext.Framework.Infrastructure
             Assert.AreEqual(expected, fijiDateTime);
         }
 
-        [TestMethod]
+        [Test]
         public void FromTimeZone_ConvertsSpecifiedTime_ToBlogTimeZoneFromSpecifiedTimeZone()
         {
             // arrange
@@ -154,7 +154,7 @@ namespace UnitTests.Subtext.Framework.Infrastructure
             Assert.AreEqual(expected, fijiDateTime);
         }
 
-        [TestMethod]
+        [Test]
         public void IsInPast_WithDateInPast_ReturnsTrue()
         {
             // arrange
@@ -174,7 +174,7 @@ namespace UnitTests.Subtext.Framework.Infrastructure
             Assert.IsFalse(isInFuture);
         }
 
-        [TestMethod]
+        [Test]
         public void IsInPast_WithDateInFuture_ReturnsFalse()
         {
             // arrange

@@ -1,5 +1,5 @@
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework;
 
 namespace UnitTests.Subtext.Framework
@@ -7,16 +7,16 @@ namespace UnitTests.Subtext.Framework
     /// <summary>
     /// Tests of the NullValue helper class
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class NullValueTests
     {
-        [TestMethod]
+        [Test]
         public void IsNullReturnsTrueForNullInt()
         {
             Assert.IsTrue(int.MinValue.IsNull());
         }
 
-        [TestMethod]
+        [Test]
         public void IsNullReturnsTrueForNullDateTime()
         {
             Assert.IsTrue(DateTime.MinValue.IsNull());

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework.Components;
 using Subtext.Framework.Providers;
@@ -7,10 +7,10 @@ using Subtext.Framework.Services;
 
 namespace UnitTests.Subtext.Framework.Services
 {
-    [TestClass]
+    [TestFixture]
     public class KeywordExpanderTests
     {
-        [TestMethod]
+        [Test]
         public void Replace_WithStringContainingKeyword_ExpandsKeyword()
         {
             //arrange
@@ -32,7 +32,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual("This is a <a href=\"http://example.com/\">cool example</a>", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Replace_WithStringContainingKeyword_ExpandsKeywordWithFirstMatchOnly()
         {
             //arrange
@@ -55,7 +55,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual("This is a <a href=\"http://example.com/\">cool example</a>", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Replace_WithStringContainingKeyword_ExpandsKeywordWithTitle()
         {
             //arrange
@@ -78,7 +78,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual("This is a <a href=\"http://example.com/\" title=\"the title\">cool example</a>", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Replace_WithKeywordSurroundedByUnderscores_IsNotExpanded()
         {
             //arrange
@@ -100,7 +100,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual(" _is_ ", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Replace_WithStringContainingKeyword_IsNotCaseSensitive()
         {
             //arrange
@@ -122,7 +122,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual(" it <a href=\"http://example.com/\">is</a> true ", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Replace_WithStringContainingKeywordSpecifiedAsCaseSensitive_IsCaseSensitive()
         {
             //arrange
@@ -145,7 +145,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual(" it IS true ", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Replace_WithStringContainingKeywordInsideAnchorTagAttribute_DoesNotExpandKeyword()
         {
             //arrange
@@ -167,7 +167,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual("<a title=\"keyword\" href=\"http://x\">test</a>", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Replace_WithStringContainingKeywordInsideAnchorTagInnerText_DoesNotExpandKeyword()
         {
             //arrange
@@ -189,7 +189,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual("<a href=\"http://x\">a keyword test</a>", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Replace_WithStringContainingKeywordInAnotherWord_DoesNotExpandKeyword()
         {
             //arrange
@@ -212,7 +212,7 @@ namespace UnitTests.Subtext.Framework.Services
         }
 
         // Issue #132: http://code.google.com/p/subtext/issues/detail?id=132
-        [TestMethod]
+        [Test]
         public void Transform_WithStringContainingBracketsAndReplacingFirstOccurrenceOnly_ReturnsConvertedKeywordAndBrackets()
         {
             //arrange
@@ -236,7 +236,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual(@"<a href=""http://example.com/"" title=""NEW"">NEW</a> {} OLD", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Transform_WithStringContainingBrackets_ReturnsConvertedKeywordAndBrackets()
         {
             //arrange
@@ -260,7 +260,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual(@"<a href=""http://example.com/"" title=""NEW"">NEW</a> {} <a href=""http://example.com/"" title=""NEW"">NEW</a> {}", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Ctor_WithRepository_GetsKeywordsFromRepository()
         {
             //arrange

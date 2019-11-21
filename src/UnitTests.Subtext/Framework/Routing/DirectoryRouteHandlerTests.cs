@@ -2,16 +2,16 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework.Routing;
 
 namespace UnitTests.Subtext.Framework.Routing
 {
-    [TestClass]
+    [TestFixture]
     public class DirectoryRouteHandlerTests
     {
-        [TestMethod]
+        [Test]
         public void RequestContext_WithNonDirectoryRoute_CausesInvalidOperationException()
         {
             //arrange
@@ -30,7 +30,7 @@ namespace UnitTests.Subtext.Framework.Routing
             UnitTestHelper.AssertThrows<InvalidOperationException>(() => routeHandler.GetHttpHandler(requestContext));
         }
 
-        [TestMethod]
+        [Test]
         public void RequestWithoutSubfolder_ForDirectory_GetsHandlerInPhysicalDirectory()
         {
             //arrange
@@ -57,13 +57,13 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("~/aspx/admin/foo.aspx", virtualPath);
         }
 
-        [TestMethod]
+        [Test]
         public void DirectoryRouteHandler_InheritsRouteHandlerBase()
         {
             Assert.IsTrue(typeof(RouteHandlerBase).IsAssignableFrom(typeof(DirectoryRouteHandler)));
         }
 
-        [TestMethod]
+        [Test]
         public void RequestWithoutSubfolder_ForAshxFileInDirectory_GetsHandlerInPhysicalDirectory()
         {
             //arrange
@@ -91,7 +91,7 @@ namespace UnitTests.Subtext.Framework.Routing
         }
 
         //TODO: Simplify this test.
-        [TestMethod]
+        [Test]
         public void RequestWithoutSubfolder_ForDirectoryWithoutFile_AppendsDefaultFileToVirtualPath()
         {
             //arrange
@@ -115,7 +115,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("~/aspx/admin/posts/Default.aspx", virtualPath);
         }
 
-        [TestMethod]
+        [Test]
         public void RequestWithoutSubfolder_ForDirectoryWithoutFileAndWithouEndingSlash_AppendsDefaultFileToVirtualPath()
         {
             //arrange
@@ -142,7 +142,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("~/aspx/admin/posts/Default.aspx", virtualPath);
         }
 
-        [TestMethod]
+        [Test]
         public void RequestWithSubfolder_ForDirectory_GetsHandlerInPhysicalDirectory()
         {
             //arrange

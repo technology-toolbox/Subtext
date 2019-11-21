@@ -1,5 +1,5 @@
 using System.Collections.Specialized;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Extensibility.Providers;
 using Subtext.Framework.Email;
 
@@ -8,14 +8,14 @@ namespace UnitTests.Subtext.Extensibility
     /// <summary>
     /// Summary description for ProviderInstantiationTests.
     /// </summary>
-    [TestClass]
+    [TypeFixture(typeof(EmailProvider))]
+    [ProviderFactory(typeof(EmailProviderFactory), typeof(EmailProvider))]
     public class EmailProviderInstantiationTests
     {
-        [TestMethod]
-        public void Initialize_WithNullPort_UsesDefaultPort()
+        [Test]
+        public void Initialize_WithNullPort_UsesDefaultPort(EmailProvider provider)
         {
             // arrange
-            var provider = new SystemMailProvider();
             var configValue = new NameValueCollection();
             configValue["port"] = null;
             
@@ -26,11 +26,10 @@ namespace UnitTests.Subtext.Extensibility
             Assert.AreEqual(25, provider.Port);
         }
 
-        [TestMethod]
-        public void Initialize_WithValuesFromConfig_SetsConfigProperties()
+        [Test]
+        public void Initialize_WithValuesFromConfig_SetsConfigProperties(EmailProvider provider)
         {
             // arrange
-            var provider = new SystemMailProvider();
             var configValue = new NameValueCollection();
             configValue["adminEmail"] = "admin@example.com";
             configValue["smtpServer"] = "smtp.example.com";
@@ -45,6 +44,15 @@ namespace UnitTests.Subtext.Extensibility
             Assert.AreEqual("smtp.example.com", provider.SmtpServer, "Did not initialize the SMTP server properly.");
             Assert.AreEqual("abracadabra", provider.Password, "Did not initialize the password properly.");
             Assert.AreEqual("haacked", provider.UserName, "Did not initialize the username properly.");
+        }
+    }
+
+    internal class EmailProviderFactory
+    {
+        [Factory]
+        public EmailProvider SystemMailProvider
+        {
+            get { return new SystemMailProvider(); }
         }
     }
 }

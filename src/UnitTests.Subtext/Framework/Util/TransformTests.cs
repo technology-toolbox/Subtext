@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework.Util;
 using Subtext.Infrastructure;
 
 namespace UnitTests.Subtext.Framework.Util
 {
-    [TestClass]
+    [TestFixture]
     public class TransformTests
     {
         readonly string emoticonsPath = UnitTestHelper.GetPathInExecutingAssemblyLocation("emoticons.txt");
 
-        [TestMethod]
+        [Test]
         public void CanLoadEmoticonsFile()
         {
             //arrange
@@ -30,7 +30,7 @@ namespace UnitTests.Subtext.Framework.Util
                             , transforms[1]);
         }
 
-        [TestMethod]
+        [Test]
         public void Transform_WithSmiley_TransformsSmiley()
         {
             //arrange
@@ -46,7 +46,7 @@ namespace UnitTests.Subtext.Framework.Util
                 @"<img src=""http://example.com/Images/emotions/smiley-cry.gif"" border=""0"" alt=""Cry"" /> ", result);
         }
 
-        [TestMethod]
+        [Test]
         public void Transform_WithSmileyWithinSentence_TransformsSmiley()
         {
             //arrange
@@ -64,8 +64,8 @@ namespace UnitTests.Subtext.Framework.Util
                 result);
         }
 
-        [TestCleanup]
-        public void TestCleanup()
+        [TearDown]
+        public void TearDown()
         {
             if(File.Exists(emoticonsPath))
             {

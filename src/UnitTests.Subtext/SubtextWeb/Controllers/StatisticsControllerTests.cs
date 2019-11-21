@@ -2,7 +2,7 @@ using System;
 using System.Collections.Specialized;
 using System.Globalization;
 using System.Web;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework;
 using Subtext.Framework.Components;
@@ -12,10 +12,10 @@ using Subtext.Web.Controllers;
 
 namespace UnitTests.Subtext.SubtextWeb.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class StatisticsControllerTests
     {
-        [TestMethod]
+        [Test]
         public void CtorSetsStatisticsService()
         {
             // arrange
@@ -29,7 +29,7 @@ namespace UnitTests.Subtext.SubtextWeb.Controllers
             Assert.AreSame(service, controller.StatisticsService);
         }
 
-        [TestMethod]
+        [Test]
         public void TwoRequestsWithinTimeoutGetsNotModifiedResult()
         {
             // arrange
@@ -47,7 +47,7 @@ namespace UnitTests.Subtext.SubtextWeb.Controllers
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
+        [Test]
         public void RequestForEntryRecordedAsAnAggregatorVisit()
         {
             // arrange
@@ -71,7 +71,7 @@ namespace UnitTests.Subtext.SubtextWeb.Controllers
             Assert.AreEqual(123, entryView.EntryId);
         }
 
-        [TestMethod]
+        [Test]
         public void RequestForInvalidEntryIdNotRecordedAsAnAggregatorVisit()
         {
             // arrange
@@ -88,7 +88,7 @@ namespace UnitTests.Subtext.SubtextWeb.Controllers
             controller.RecordAggregatorView(-1);
         }
 
-        [TestMethod]
+        [Test]
         public void RequestReturnsFileResultContainingSinglePixelImage()
         {
             // arrange

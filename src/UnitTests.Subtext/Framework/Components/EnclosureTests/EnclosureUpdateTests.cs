@@ -16,20 +16,21 @@
 #endregion
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Components;
 using Subtext.Framework.Data;
 using Subtext.Framework.Text;
 
 namespace UnitTests.Subtext.Framework.Components.EnclosureTests
 {
-    [TestClass]
+    [TestFixture]
     public class EnclosureUpdateTests
     {
-        [DatabaseIntegrationTestMethod]
-        [DataRow("My wonderful podcast", "http://codeclimber.net.nz/podcast/mypodcast.mp3", "audio/mpeg", 123456789, true,
+        [RowTest]
+        [Row("My wonderful podcast", "http://codeclimber.net.nz/podcast/mypodcast.mp3", "audio/mpeg", 123456789, true,
             false)]
-        [DataRow("", "http://codeclimber.net.nz/podcast/mypodcast.mp3", "audio/mpeg", 123456789, true, false)]
+        [Row("", "http://codeclimber.net.nz/podcast/mypodcast.mp3", "audio/mpeg", 123456789, true, false)]
+        [RollBack2]
         public void CanUpdateEnclosure(string title, string url, string mimetype, long size, bool addToFeed,
                                        bool showWithPost)
         {
@@ -64,7 +65,7 @@ namespace UnitTests.Subtext.Framework.Components.EnclosureTests
             UnitTestHelper.AssertEnclosures(enc, newEntry.Enclosure);
         }
 
-        [TestMethod]
+        [Test]
         public void Update_WithInvalidEnclosure_ThrowsArgumentException()
         {
             // arrange
@@ -77,7 +78,7 @@ namespace UnitTests.Subtext.Framework.Components.EnclosureTests
             Assert.AreEqual(enclosure.ValidationMessage, exception.Message);
         }
 
-        [TestMethod]
+        [Test]
         public void Update_WithNullEnclosure_ThrowsArgumentNullException()
         {
             var repository = new DatabaseObjectProvider();

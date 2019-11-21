@@ -1,15 +1,15 @@
 ﻿using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Web.Controllers;
 using Subtext.Web.Infrastructure;
 
 namespace UnitTests.Subtext.SubtextWeb.Infrastructure
 {
-    [TestClass]
+    [TestFixture]
     public class SubtextControllerActivatorTests
     {
-        [TestMethod]
+        [Test]
         public void Create_WithControllerType_CanCreateControllerOfThatType()
         {
             // arrange
@@ -24,7 +24,7 @@ namespace UnitTests.Subtext.SubtextWeb.Infrastructure
             Assert.AreEqual(typeof(CommentApiController), controller.GetType());
         }
 
-        [TestMethod]
+        [Test]
         public void Create_SetsEmptyTempDataProvider()
         {
             // arrange

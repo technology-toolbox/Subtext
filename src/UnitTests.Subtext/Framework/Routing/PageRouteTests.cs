@@ -2,17 +2,17 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework.Routing;
 using Subtext.Framework.Web.HttpModules;
 
 namespace UnitTests.Subtext.Framework.Routing
 {
-    [TestClass]
+    [TestFixture]
     public class PageRouteTests
     {
-        [TestMethod]
+        [Test]
         public void GetVirtualPath_WithoutSubolder_ReturnsUrlWithoutSubfolder()
         {
             //arrange
@@ -32,7 +32,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("archive/test-slug.aspx", virtualPath.VirtualPath);
         }
 
-        [TestMethod]
+        [Test]
         public void GetVirtualPath_WithSubolder_ReturnsUrlWithSubfolder()
         {
             //arrange
@@ -53,7 +53,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("subfolder/archive/test-slug.aspx", virtualPath.VirtualPath);
         }
 
-        [TestMethod]
+        [Test]
         public void Request_ForPageRouteWithConstraints_MatchesWhenConstraintsAreSatisfied()
         {
             //arrange
@@ -70,7 +70,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.IsNotNull(routeData);
         }
 
-        [TestMethod]
+        [Test]
         public void RequestWithSubfolder_ForBlogPostWithSubfolder_Matches()
         {
             //arrange
@@ -91,7 +91,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("blogsubfolder", routeData.Values["subfolder"]);
         }
 
-        [TestMethod]
+        [Test]
         public void RequestWithoutSubfolder_ForBlogPostWithSubfolder_DoesNotMatch()
         {
             //arrange
@@ -110,7 +110,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.IsNull(routeData);
         }
 
-        [TestMethod]
+        [Test]
         public void RequestWithoutSubfolder_ForBlogPostWithoutSubfolder_Matches()
         {
             //arrange
@@ -131,7 +131,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual(string.Empty, routeData.Values["subfolder"]);
         }
 
-        [TestMethod]
+        [Test]
         public void RequestWithSubfolder_ForBlogPostWithoutSubfolder_DoesNotMatch()
         {
             //arrange
@@ -150,7 +150,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.IsNull(routeData);
         }
 
-        [TestMethod]
+        [Test]
         public void GetRouteData_MatchingTheImplicitSubfolderRoute_ReturnsParentDirectoryRoute()
         {
             //arrange

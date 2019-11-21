@@ -1,5 +1,5 @@
 using System.Data.SqlClient;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Configuration;
 using Subtext.Scripting;
 using Subtext.Scripting.Exceptions;
@@ -9,10 +9,10 @@ namespace UnitTests.Subtext.Scripting
     /// <summary>
     /// Some tests of various exception conditions.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class ExceptionTests
     {
-        [TestMethod]
+        [Test]
         public void ExecuteThrowsArgumentExceptionForNullTransaction()
         {
             var script = new Script("");
@@ -20,7 +20,7 @@ namespace UnitTests.Subtext.Scripting
             UnitTestHelper.AssertThrowsArgumentNullException(() => script.Execute(null));
         }
 
-        [TestMethod]
+        [Test]
         public void ExecuteThrowsScriptExceptionForBadSql()
         {
             var script = new Script("SELECT * FROM BLAHBLAH");
@@ -31,7 +31,7 @@ namespace UnitTests.Subtext.Scripting
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ExecuteThrowsProperScriptExceptionForBadSql()
         {
             var script = new Script("SELECT * FROM BLAHBLAH");

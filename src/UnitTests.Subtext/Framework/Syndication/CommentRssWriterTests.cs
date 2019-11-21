@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Web;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Extensibility;
 using Subtext.Framework;
@@ -17,13 +17,13 @@ namespace UnitTests.Subtext.Framework.Syndication
     /// <summary>
     /// Unit tests of the <see cref="CommentRssWriter"/> class.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class CommentRssWriterTests : SyndicationTestBase
     {
         /// <summary>
         /// Tests that a valid feed is produced even if a post has no comments.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CommentRssWriterProducesValidEmptyFeed()
         {
             var blogInfo = new Blog();
@@ -85,7 +85,7 @@ namespace UnitTests.Subtext.Framework.Syndication
         /// <summary>
         /// Tests that a valid feed is produced even if a post has no comments.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void CommentRssWriterProducesValidFeed()
         {
             var blogInfo = new Blog();
@@ -183,7 +183,12 @@ namespace UnitTests.Subtext.Framework.Syndication
             UnitTestHelper.AssertStringsEqualCharacterByCharacter(expected, rss);
         }
 
-        [TestMethod]
+        [TearDown]
+        public void TearDown()
+        {
+        }
+
+        [Test]
         public void Ctor_WithNullEntryCollection_ThrowsArgumentNullException()
         {
             UnitTestHelper.AssertThrowsArgumentNullException(() =>
@@ -192,7 +197,7 @@ namespace UnitTests.Subtext.Framework.Syndication
             );
         }
 
-        [TestMethod]
+        [Test]
         public void Ctor_WithNullEntry_ThrowsArgumentNullException()
         {
             UnitTestHelper.AssertThrowsArgumentNullException(() =>

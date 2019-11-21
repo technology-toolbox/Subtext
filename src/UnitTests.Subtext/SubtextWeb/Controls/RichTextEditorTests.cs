@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Web.Controls;
 using Subtext.Web.Providers.BlogEntryEditor.FTB;
 using Subtext.Framework.Web.Handlers;
@@ -15,10 +15,10 @@ using Subtext.Web.Providers.BlogEntryEditor.PlainText;
 
 namespace UnitTests.Subtext.SubtextWeb.Controls
 {
-    [TestClass]
+    [TestFixture]
     public class RichTextEditorTests
     {
-        [TestMethod]
+        [Test]
         public void RichTextEditor_CreateDefaultProvider()
         {
             using (var httpRequest = new HttpSimulator().SimulateRequest())
@@ -42,7 +42,7 @@ namespace UnitTests.Subtext.SubtextWeb.Controls
             }
         }
 
-        [TestMethod]
+        [Test]
         public void RichTextEditor_CreatePlainText_IfPreferenceSet()
         {
             using (var httpRequest = new HttpSimulator().SimulateRequest())

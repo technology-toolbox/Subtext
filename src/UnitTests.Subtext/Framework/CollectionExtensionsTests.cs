@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework;
 
 namespace UnitTests.Subtext.Framework
 {
-    [TestClass]
+    [TestFixture]
     public class CollectionExtensionsTests
     {
-        [TestMethod]
+        [Test]
         public void ForEach_WithCollection_IteratesEachItem()
         {
             // arrange
@@ -23,7 +23,7 @@ namespace UnitTests.Subtext.Framework
             Assert.AreEqual("543", concatenated);
         }
 
-        [TestMethod]
+        [Test]
         public void AddRange_WithCollection_AddsAllItemsToCollection()
         {
             // arrange
@@ -37,7 +37,7 @@ namespace UnitTests.Subtext.Framework
             Assert.AreEqual(3, numbers.Count());
         }
 
-        [TestMethod]
+        [Test]
         public void GetBoolean_WithNameValueCollectionHavingCorrespondingValue_ReturnsBoolean()
         {
             // arrange
@@ -50,7 +50,7 @@ namespace UnitTests.Subtext.Framework
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetBoolean_WithNullValueForKey_ReturnsFalse()
         {
             // arrange
@@ -63,7 +63,7 @@ namespace UnitTests.Subtext.Framework
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetBoolean_WithNoValueForKey_ReturnsFalse()
         {
             // arrange
@@ -76,7 +76,7 @@ namespace UnitTests.Subtext.Framework
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetBoolean_WithInvalidValueForKey_ReturnsFalse()
         {
             // arrange
@@ -89,7 +89,7 @@ namespace UnitTests.Subtext.Framework
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetEnum_WithEnumValue_IgnoresCase()
         {
             // arrange
@@ -108,7 +108,7 @@ namespace UnitTests.Subtext.Framework
             Bar,
         }
 
-        [TestMethod]
+        [Test]
         public void Accumulate_WithTwoEnumerations_AccumulatesOneIntoTheOther()
         {
             // arrange

@@ -1,15 +1,15 @@
 using System;
 using System.Globalization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Components;
 using Subtext.Framework.Util;
 
 namespace UnitTests.Subtext.Framework.Components
 {
-    [TestClass]
+    [TestFixture]
     public class ServerTimeZoneInfoTests
     {
-        [TestMethod]
+        [Test]
         public void ctor_WhenServerAndLocalTimeZonesAreSame_ShowsSameTime()
         {
             //arrange
@@ -29,7 +29,7 @@ namespace UnitTests.Subtext.Framework.Components
             Assert.AreEqual("2009/08/12 06:50 AM", info.ServerUtcTime);
         }
 
-        [TestMethod]
+        [Test]
         public void ctor_WhenServerAndLocalTimeZonesAreDifferent_ShowsDifferentTimes()
         {
             //arrange

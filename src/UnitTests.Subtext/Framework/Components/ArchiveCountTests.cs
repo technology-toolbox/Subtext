@@ -1,12 +1,12 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Components;
 
 namespace UnitTests.Subtext.Framework.Components
 {
-    [TestClass]
+    [TestFixture]
     public class ArchiveCountTests
     {
-        [TestMethod]
+        [Test]
         public void CanSetAndGetSimpleProperties()
         {
             var archive = new ArchiveCount();

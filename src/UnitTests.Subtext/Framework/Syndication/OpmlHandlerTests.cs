@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Moq.Stub;
 using Subtext.Framework;
@@ -13,7 +13,7 @@ using Subtext.Framework.Syndication;
 
 namespace UnitTests.Subtext.Framework.Syndication
 {
-    [TestClass]
+    [TestFixture]
     public class OpmlHandlerTests
     {
         private static HostInfo CreateHostInfo()
@@ -21,7 +21,7 @@ namespace UnitTests.Subtext.Framework.Syndication
             return new HostInfo(new NameValueCollection());
         }
 
-        [TestMethod]
+        [Test]
         public void OpmlHandler_WithRequest_SetsContentTypeToXml()
         {
             //arrange
@@ -47,7 +47,7 @@ namespace UnitTests.Subtext.Framework.Syndication
             Assert.AreEqual("text/xml", context.Object.HttpContext.Response.ContentType);
         }
 
-        [TestMethod]
+        [Test]
         public void OpmlHandler_WithRequestForAggregateBlog_GetsGroupIdFromQueryString()
         {
             //arrange

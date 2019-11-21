@@ -1,13 +1,13 @@
 using System.Collections.Specialized;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Services;
 
 namespace UnitTests.Subtext.Framework.Services
 {
-    [TestClass]
+    [TestFixture]
     public class GravatarServiceTests
     {
-        [TestMethod]
+        [Test]
         public void GenerateUrlHashesEmailAddress()
         {
             //arrange
@@ -17,10 +17,10 @@ namespace UnitTests.Subtext.Framework.Services
             string url = service.GenerateUrl("test@example.com");
 
             //assert
-            StringAssert.Contains(url, "55502f40dc8b7c769880b10874abc9d0");
+            Assert.Contains(url, "55502f40dc8b7c769880b10874abc9d0");
         }
 
-        [TestMethod]
+        [Test]
         public void GenerateUrlUsesIdenticonForDefaultImage()
         {
             //arrange
@@ -38,7 +38,7 @@ namespace UnitTests.Subtext.Framework.Services
                     + "?d=identicon");
         }
 
-        [TestMethod]
+        [Test]
         public void GenerateUrlSupportsCustomDefaultImage()
         {
             //arrange
@@ -63,7 +63,7 @@ namespace UnitTests.Subtext.Framework.Services
                         + "%2fImages%2fSilhouette-1.jpg");
         }
 
-        [TestMethod]
+        [Test]
         public void CanCreateGravatarServiceWithNameValueCollection()
         {
             //arrange
@@ -81,7 +81,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual("{0}/{1}", service.UrlFormatString);
         }
 
-        [TestMethod]
+        [Test]
         public void WhenCreatingGravatarServiceWithNullBoolean_NoExceptionIsThrown()
         {
             //arrange
@@ -99,7 +99,7 @@ namespace UnitTests.Subtext.Framework.Services
             Assert.AreEqual("{0}/{1}", service.UrlFormatString);
         }
 
-        [TestMethod]
+        [Test]
         public void WhenCreatingGravatarServiceWithNonsensicalBoolean_NoExceptionIsThrown()
         {
             //arrange

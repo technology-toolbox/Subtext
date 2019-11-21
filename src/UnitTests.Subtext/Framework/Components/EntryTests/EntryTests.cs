@@ -16,17 +16,17 @@
 #endregion
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Extensibility;
 using Subtext.Framework;
 using Subtext.Framework.Components;
 
 namespace UnitTests.Subtext.Framework.Components.EntryTests
 {
-    [TestClass]
+    [TestFixture]
     public class EntryTests
     {
-        [TestMethod]
+        [Test]
         public void CommentingClosedByAge_WithCurrentDateAfterDaysTillClose_ReturnsTrue()
         {
             // arrange
@@ -47,7 +47,7 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             Assert.IsTrue(closed);
         }
 
-        [TestMethod]
+        [Test]
         public void CommentingClosedByAge_WithCurrentDateBeforeDaysTillClose_ReturnsFalse()
         {
             // arrange
@@ -68,7 +68,7 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             Assert.IsFalse(closed);
         }
 
-        [TestMethod]
+        [Test]
         public void CommentingClosedByAge_WithMaxDaysTillClose_ReturnsFalse()
         {
             // arrange

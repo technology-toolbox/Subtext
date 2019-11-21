@@ -1,13 +1,13 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Scripting;
 using Subtext.Scripting.Exceptions;
 
 namespace UnitTests.Subtext.Scripting
 {
-    [TestClass]
+    [TestFixture]
     public class SqlScriptExecutionExceptionTests
     {
-        [TestMethod]
+        [Test]
         public void InstantiateWithMessageSetsMessageProperty()
         {
             var exception = new SqlScriptExecutionException();
@@ -15,7 +15,7 @@ namespace UnitTests.Subtext.Scripting
             Assert.AreEqual("MessageReturn Value: 0", exception.Message);
         }
 
-        [TestMethod]
+        [Test]
         public void CtorSetsProperties()
         {
             var exception = new SqlScriptExecutionException("Message", new Script("test"), 123);

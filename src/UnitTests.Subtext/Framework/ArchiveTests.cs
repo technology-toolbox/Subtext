@@ -1,17 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Components;
 using Subtext.Framework.Configuration;
 using Subtext.Framework.Data;
 
 namespace UnitTests.Subtext.Framework
 {
-    [TestClass]
+    [TestFixture]
     public class ArchiveTests
     {
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanGetPostsByYearArchive()
         {
             DateTime utcNow = DateTime.ParseExact("2009/08/15 11:00 PM", "yyyy/MM/dd hh:mm tt", CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal).ToUniversalTime();
@@ -37,7 +38,8 @@ namespace UnitTests.Subtext.Framework
             }
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanGetPostsByCategoryArchive()
         {
             UnitTestHelper.SetupBlog();

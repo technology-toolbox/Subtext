@@ -1,15 +1,15 @@
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework.Routing;
 
 namespace UnitTests.Subtext.Framework.Routing
 {
-    [TestClass]
+    [TestFixture]
     public class RouteExtensionsTests
     {
-        [TestMethod]
+        [Test]
         public void Ignore_AddsIgnoreRoute_ToRouteCollection()
         {
             //arrange
@@ -23,7 +23,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual(typeof(IgnoreRoute), routes[0].GetType());
         }
 
-        [TestMethod]
+        [Test]
         public void MapControls_WithConstraints_AddsPageRouteWithConstraintsToCollection()
         {
             //arrange
@@ -37,7 +37,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("constraintvalue", ((PageRoute)routes[0]).Constraints["constraint"]);
         }
 
-        [TestMethod]
+        [Test]
         public void MapControls_WithoutConstraints_AddsPageRouteWithConstraintsToCollection()
         {
             //arrange
@@ -51,7 +51,7 @@ namespace UnitTests.Subtext.Framework.Routing
             Assert.AreEqual("url", ((PageRoute)routes[0]).Url);
         }
 
-        [TestMethod]
+        [Test]
         public void MapSystemDirectory_SetsDirectoryRouteHandlerAndAddsPathInfoToRouteUrl()
         {
             //arrange

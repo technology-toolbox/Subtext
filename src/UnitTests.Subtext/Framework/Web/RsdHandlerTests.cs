@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 using System.Xml;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework;
 using Subtext.Framework.Routing;
@@ -9,10 +9,10 @@ using Subtext.Framework.Web.Handlers;
 
 namespace UnitTests.Subtext.Framework.Web
 {
-    [TestClass]
+    [TestFixture]
     public class RsdHandlerTests
     {
-        [TestMethod]
+        [Test]
         public void WriteRsdWritesTheCorrectRSD()
         {
             //arrange

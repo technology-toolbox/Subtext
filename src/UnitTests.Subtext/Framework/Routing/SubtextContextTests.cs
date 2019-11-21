@@ -1,6 +1,6 @@
 using System.Web;
 using System.Web.Routing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework;
 using Subtext.Framework.Providers;
@@ -8,10 +8,10 @@ using Subtext.Framework.Routing;
 
 namespace UnitTests.Subtext.Framework.Routing
 {
-    [TestClass]
+    [TestFixture]
     public class SubtextContextTests
     {
-        [TestMethod]
+        [Test]
         public void Ctor_WithAllNonNullArgs_SetsProperties()
         {
             //arrange

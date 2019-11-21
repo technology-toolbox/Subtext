@@ -1,15 +1,14 @@
 ﻿using log4net.Appender;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 
 namespace UnitTests.Subtext
 {
     /// <summary>
     /// Various tests to make sure certain assumptions are met in this build.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class IntegrityTests
     {
-        [TestMethod]
         public void Log4NetHasConnectionStringNameProperty()
         {
             var appender = new AdoNetAppender();

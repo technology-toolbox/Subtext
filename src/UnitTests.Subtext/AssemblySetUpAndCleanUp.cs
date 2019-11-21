@@ -1,19 +1,20 @@
 using System;
 using System.Configuration;
 using System.Data.SqlClient;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework.Configuration;
 using Subtext.Framework.Infrastructure.Installation;
 using UnitTests.Subtext;
 
+[assembly: AssemblyCleanup(typeof(AssemblySetUpAndCleanUp))]
+
 namespace UnitTests.Subtext
 {
-    [TestClass]
     public static class AssemblySetUpAndCleanUp
     {
-        [AssemblyInitialize]
+        [SetUp]
         [CoverageExclude]
-        public static void AssemblyInitialize(TestContext context)
+        public static void SetUp()
         {
             Console.WriteLine("Assembly Setup beginning...");
             if (ConfigurationManager.AppSettings["connectionStringName"] == "subtextExpress")
@@ -43,9 +44,9 @@ namespace UnitTests.Subtext
             }
         }
 
-        [AssemblyCleanup]
+        [TearDown]
         [CoverageExclude]
-        public static void AssemblyCleanup()
+        public static void TearDown()
         {
             try
             {

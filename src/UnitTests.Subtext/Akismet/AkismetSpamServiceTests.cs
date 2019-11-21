@@ -1,5 +1,5 @@
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Akismet;
 using Subtext.Extensibility;
@@ -10,10 +10,10 @@ using Subtext.Framework.Services;
 
 namespace UnitTests.Subtext.Akismet
 {
-    [TestClass]
+    [TestFixture]
     public class AkismetSpamServiceTests
     {
-        [TestMethod]
+        [Test]
         public void Service_WithUrlHelper_UsesItForFeedbackUrl()
         {
             //arrange
@@ -36,7 +36,7 @@ namespace UnitTests.Subtext.Akismet
             Assert.AreEqual("http://localhost/feedback-item", submittedSpam.Permalink.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertToAkismetItem_WithContactPageFeedback_DoesNotSetPermalink()
         {
             // arrange
@@ -53,7 +53,7 @@ namespace UnitTests.Subtext.Akismet
             Assert.IsNull(comment.Permalink);
         }
 
-        [TestMethod]
+        [Test]
         public void ConvertToAkismetItem_WithFeedback_SetsProperties()
         {
             // arrange

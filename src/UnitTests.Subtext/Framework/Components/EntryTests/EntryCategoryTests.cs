@@ -1,5 +1,5 @@
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Extensibility;
 using Subtext.Framework.Components;
 using Subtext.Framework.Configuration;
@@ -8,10 +8,11 @@ using Subtext.Framework.Web.HttpModules;
 
 namespace UnitTests.Subtext.Framework.Components.EntryTests
 {
-    [TestClass]
+    [TestFixture]
     public class EntryCategoryTests
     {
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanAddAndRemoveAllCategories()
         {
             string hostname = UnitTestHelper.GenerateUniqueString();

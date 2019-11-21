@@ -1,15 +1,15 @@
 using System.Web;
 using System.Web.Routing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework.Routing;
 
 namespace UnitTests.Subtext.Framework.Routing
 {
-    [TestClass]
+    [TestFixture]
     public class ImageRouteTests
     {
-        [TestMethod]
+        [Test]
         public void GetRouteDataWithAnyRequest_ReturnsNull()
         {
             //arrange

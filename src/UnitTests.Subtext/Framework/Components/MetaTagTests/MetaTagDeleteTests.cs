@@ -16,17 +16,18 @@
 #endregion
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Framework;
 using Subtext.Framework.Components;
 using Subtext.Framework.Data;
 
 namespace UnitTests.Subtext.Framework.Components.MetaTagTests
 {
-    [TestClass]
+    [TestFixture]
     public class MetaTagDeleteTests
     {
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanDeleteBlogMetaTag()
         {
             var blog = UnitTestHelper.CreateBlogAndSetupContext();
@@ -45,7 +46,8 @@ namespace UnitTests.Subtext.Framework.Components.MetaTagTests
                             "Should be zero (0) MetaTags for this blog.");
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void CanDeleteEntryMetaTag()
         {
             var blog = UnitTestHelper.CreateBlogAndSetupContext();

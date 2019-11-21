@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Subtext.Extensibility;
 using Subtext.Framework.Components;
 using Subtext.Framework.Configuration;
@@ -29,11 +29,11 @@ using Subtext.Framework.Web.HttpModules;
 
 namespace UnitTests.Subtext.Framework.Components.EntryTests
 {
-    [TestClass]
+    [TestFixture]
     public class EntriesGetTests
     {
-        [TestInitialize]
-        public void TestInitialize()
+        [SetUp]
+        public void Setup()
         {
             var repository = new DatabaseObjectProvider();
             string hostname = UnitTestHelper.GenerateUniqueString();
@@ -42,7 +42,8 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             BlogRequest.Current.Blog = repository.GetBlog(hostname, string.Empty);
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetRecentPostsIncludesEnclosure()
         {
             int blogId = Config.CurrentBlog.Id;
@@ -96,7 +97,8 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             UnitTestHelper.AssertEnclosures(enc, entries.ElementAt(2).Enclosure);
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetEntriesByTagIncludesEnclosure()
         {
             Entry entryZero = UnitTestHelper.CreateEntryInstanceForSyndication("me", "title-zero", "body-zero");
@@ -129,7 +131,8 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             UnitTestHelper.AssertEnclosures(enc, entries.ElementAt(1).Enclosure);
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetEntriesByCategoryIncludesEnclosure()
         {
             //Create Category
@@ -178,7 +181,8 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             UnitTestHelper.AssertEnclosures(enc, entries.ElementAt(2).Enclosure);
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetPostsByDayRangeIncludesEnclosure()
         {
             //Create some entries.
@@ -221,7 +225,8 @@ namespace UnitTests.Subtext.Framework.Components.EntryTests
             UnitTestHelper.AssertEnclosures(enc, entries.ElementAt(2).Enclosure);
         }
 
-        [DatabaseIntegrationTestMethod]
+        [Test]
+        [RollBack2]
         public void GetPostCollectionByMonthIncludesEnclosure()
         {
             //Create some entries.

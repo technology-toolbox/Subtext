@@ -21,7 +21,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Moq;
 using Subtext.Framework;
 using Subtext.Framework.Security;
@@ -31,10 +31,10 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
     /// <summary>
     /// Summary description for SecurityTests.
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class SecurityTests
     {
-        [TestMethod]
+        [Test]
         public void IsValidPassword_WithBlogHavingHashedPasswordMatchingGivenClearTextPassword_ReturnsTrue()
         {
             // arrange
@@ -50,7 +50,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
             Assert.IsTrue(isValidPassword);
         }
 
-        [TestMethod]
+        [Test]
         public void IsValidPassword_WithPasswordHashingEnabledAndGivenTheHashedPassword_ReturnsFalse()
         {
             // arrange
@@ -66,7 +66,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
             Assert.IsFalse(isValidPassword);
         }
 
-        [TestMethod]
+        [Test]
         public void IsValidPassword_WithClearTextPasswordMatchingBlogPassword_ReturnsTrue()
         {
             // arrange
@@ -83,7 +83,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
         /// <summary>
         /// Ensures HashesPassword is case sensitive.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void HashPasswordIsCaseSensitive()
         {
             const string lowercase = "password";
@@ -100,7 +100,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
         /// Want to make sure that we still understand the old 
         /// bitconverter created password.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void IsValidPassword_GivenValidPasswordHashedUsingOldBitConverterStyleHash_ReturnsTrue()
         {
             // arrange
@@ -121,7 +121,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
         /// Want to make sure that we still understand the old 
         /// bitconverter created password.
         /// </summary>
-        [TestMethod]
+        [Test]
         public void ValidateHostAdminPassword_WithValidUsernameAndPasswordCombo_ReturnsTrue()
         {
             // arrange
@@ -138,7 +138,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
             Assert.IsTrue(isValid);
         }
 
-        [TestMethod]
+        [Test]
         public void SelectAuthenticationCookie_WithCookieNameMatchingBlog_ReturnsThatCookie()
         {
             // arrange
@@ -161,7 +161,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
             Assert.AreEqual("/Subtext.Web", cookie.Path);
         }
 
-        [TestMethod]
+        [Test]
         public void GetFullCookieName_WithBlog_ReturnsCookieNameWithBlogId()
         {
             // arrange
@@ -176,7 +176,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
             Assert.AreEqual(".ASPXAUTH.42", cookieName);
         }
 
-        [TestMethod]
+        [Test]
         public void GetFullCookieName_WithNullBlog_ReturnsCookieNameWithHostAdminMarker()
         {
             // arrange
@@ -190,7 +190,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
             Assert.AreEqual(".ASPXAUTH.HA.null", cookieName);
         }
 
-        [TestMethod]
+        [Test]
         public void GetFullCookieName_WithAggregateBlog_ReturnsCookieNameWithHostAdminMarker()
         {
             // arrange
@@ -204,7 +204,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
             Assert.AreEqual(".ASPXAUTH.HA.null", cookieName);
         }
 
-        [TestMethod]
+        [Test]
         public void GetFullCookieName_WithReturnUrlPointingToHostAdmin_ReturnsCookieNameWithBlogIdAndHostAdminInitials()
         {
             // arrange
@@ -220,7 +220,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
             Assert.AreEqual(".ASPXAUTH.HA.42", cookieName);
         }
 
-        [TestMethod]
+        [Test]
         public void GetFullCookieName_WithForceHostAdminTrueAndNullBlog_ReturnsCookieNameWithHostAdminInitials()
         {
             // arrange
@@ -234,7 +234,7 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
             Assert.AreEqual(".ASPXAUTH.HA.null", cookieName);
         }
 
-        [TestMethod]
+        [Test]
         public void CanAuthenticateAdmin()
         {
             // arrange
@@ -257,14 +257,14 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
             Assert.IsNotNull(cookie);
         }
 
-        [TestMethod]
+        [Test]
         public void CanGenerateSymmetricEncryptionKey()
         {
             byte[] key = SecurityHelper.GenerateSymmetricKey();
             Assert.IsTrue(key.Length > 0, "Expected a non-zero key.");
         }
 
-        [TestMethod]
+        [Test]
         public void CanSymmetricallyEncryptAndDecryptText()
         {
             const string clearText = "Hello world!";
@@ -278,11 +278,11 @@ namespace UnitTests.Subtext.Framework.SecurityHandling
         }
 
         /// <summary>
-        /// Sets the up test class.  This is called once for 
-        /// this test class before all the tests run.
+        /// Sets the up test fixture.  This is called once for 
+        /// this test fixture before all the tests run.
         /// </summary>
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext testContext)
+        [TestFixtureSetUp]
+        public void SetUpTestFixture()
         {
             //Confirm app settings
             UnitTestHelper.AssertAppSettings();

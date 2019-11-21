@@ -30,7 +30,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MbUnit.Framework;
 using Microsoft.ApplicationBlocks.Data;
 using Moq;
 using Ninject;
@@ -634,14 +634,11 @@ namespace UnitTests.Subtext
                     object valueToSet;
                     if (property.PropertyType == typeof(int)
                        || property.PropertyType == typeof(short)
+                       || property.PropertyType == typeof(decimal)
+                       || property.PropertyType == typeof(double)
                        || property.PropertyType == typeof(long))
                     {
                         valueToSet = 42;
-                    }
-                    else if (property.PropertyType == typeof(decimal)
-                       || property.PropertyType == typeof(double))
-                    {
-                        valueToSet = 42.0;
                     }
                     else if (property.PropertyType == typeof(string))
                     {
